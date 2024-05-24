@@ -1,4 +1,5 @@
 {
-    "@@author": "Ibrahima Sylla",
-    "@@locale": "fr"
+  "@@author": "Ibrahima Sylla",
+  "@@locale": "fr",
+  "code_is_required": "Votre code secret est requis pour dévérouiller"
 }
