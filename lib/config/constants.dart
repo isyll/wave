@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 class Constants {
-  static const supportedLocales = [Locale('fr', 'FR')];
-  static const locale = Locale('fr', 'FR');
+  static const supportedLocales = [Locale('fr')];
+  static const locale = Locale('fr');
 }

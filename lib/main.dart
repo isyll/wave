@@ -4,6 +4,7 @@ import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth_screen.dart';
 import 'package:waveapp/theme/app_theme.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -18,6 +19,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
       title: 'Wave',
