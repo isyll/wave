@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth_screen.dart';
-import 'package:waveapp/theme/app_theme.dart';
+import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'firebase_options.dart';
