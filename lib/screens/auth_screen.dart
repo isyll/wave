@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:waveapp/screens/home_screen.dart';
 import 'package:waveapp/widgets/pin_code.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -13,11 +14,6 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   String pinCode = '';
   int pinLength = 4;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +45,16 @@ class _AuthScreenState extends State<AuthScreen> {
                           .copyWith(fontWeight: FontWeight.normal),
                     )),
                 const SizedBox(height: 100),
-                PinCode(onCompleted: (code) {}, pinLength: 4)
+                PinCode(
+                    onCompleted: (code) {
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()));
+                      });
+                    },
+                    pinLength: 4)
               ],
             ),
           )
