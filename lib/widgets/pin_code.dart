@@ -41,13 +41,6 @@ class _PinCodeState extends State<PinCode> with SingleTickerProviderStateMixin {
     );
   }
 
-  double fs = 28;
-  void anim() {
-    setState(() {
-      fs = fs == 28 ? 36 : 28;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
