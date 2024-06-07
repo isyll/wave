@@ -18,5 +18,9 @@ class AppTextTheme {
       bodyMedium: TextStyle(
           fontSize: 20,
           color: AppColors.lightColorScheme.onSecondary,
+          fontWeight: FontWeight.normal),
+    bodySmall: TextStyle(
+          fontSize: 14,
+          color: AppColors.lightColorScheme.onSecondary,
           fontWeight: FontWeight.normal));
 }
