@@ -17,7 +17,7 @@ class PinCode extends StatefulWidget {
   State<PinCode> createState() => _PinCodeState();
 }
 
-class _PinCodeState extends State<PinCode> with SingleTickerProviderStateMixin {
+class _PinCodeState extends State<PinCode> {
   String _pinCode = '';
 
   // Button for all digits.
@@ -29,7 +29,8 @@ class _PinCodeState extends State<PinCode> with SingleTickerProviderStateMixin {
             setState(() {
               if (_pinCode.length < widget.pinLength) {
                 _pinCode += number.toString();
-              } else if (_pinCode.length == widget.pinLength) {
+              }
+              if (_pinCode.length == widget.pinLength) {
                 widget.onCompleted(int.parse(_pinCode));
               }
             });

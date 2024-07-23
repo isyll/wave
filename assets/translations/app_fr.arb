@@ -2,5 +2,6 @@
   "@@author": "Ibrahima Sylla",
   "@@locale": "fr",
   "code_is_required": "Votre code secret est requis pour dévérouiller",
-  "forgot_password": "oublié?"
+  "forgot_password": "oublié?",
+  "scan_qr_code": "Scanner"
 }

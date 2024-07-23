@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   runApp(const App());
 }
 
@@ -29,7 +23,7 @@ class App extends StatelessWidget {
       ],
       theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
-      title: 'Wave',
+      title: 'Wave by Ibrahima Sylla',
       home: const AuthScreen(),
       locale: Constants.locale,
       supportedLocales: Constants.supportedLocales,

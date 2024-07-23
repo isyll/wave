@@ -15,6 +15,14 @@ class _AuthScreenState extends State<AuthScreen> {
   String pinCode = '';
   int pinLength = 4;
 
+  // called when all pin digits are typed
+  void onCompleted(int code) {
+    Future.delayed(const Duration(milliseconds: 200), () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -45,16 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           .copyWith(fontWeight: FontWeight.normal),
                     )),
                 const SizedBox(height: 100),
-                PinCode(
-                    onCompleted: (code) {
-                      Future.delayed(const Duration(milliseconds: 300), () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()));
-                      });
-                    },
-                    pinLength: 4)
+                PinCode(onCompleted: onCompleted, pinLength: 4)
               ],
             ),
           )
