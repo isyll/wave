@@ -12,15 +12,24 @@ class HomeQrCode extends StatefulWidget {
 class _HomeQrCodeState extends State<HomeQrCode> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 184,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).colorScheme.secondary),
-      child: const Center(
-        child: _QrCode(code: '123456789012345678901234567890'),
-      ),
+    return Stack(
+      children: [
+        Container(
+          width: 320,
+          height: 184,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Theme.of(context).colorScheme.secondary),
+          child: const Center(
+            child: _QrCode(code: '123456789012345678901234567890'),
+          ),
+        ),
+        Positioned(
+            bottom: 14,
+            right: 1,
+            child:
+                Image.asset('assets/images/wave-logo-removebg.png', width: 64))
+      ],
     );
   }
 }

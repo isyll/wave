@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waveapp/screens/home/home_body.dart';
 import 'package:waveapp/widgets/balance_display_widget.dart';
 import 'package:waveapp/screens/home/home_qr_code.dart';
 
@@ -31,16 +32,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     balance: 16008,
                   ),
                 )),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return const Center(
-                    child: HomeQrCode()
-                  );
-                },
-                childCount: 1,
+            SliverToBoxAdapter(
+                child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: const Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      top: 100,
+                      child: HomeBody()),
+                  HomeQrCode(),
+                ],
               ),
-            ),
+            )),
           ],
         )));
   }
