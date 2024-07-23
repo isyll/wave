@@ -5,6 +5,7 @@ import 'package:waveapp/screens/home/home_qr_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  static const routeName = '/home';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

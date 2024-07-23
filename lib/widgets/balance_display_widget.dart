@@ -19,16 +19,28 @@ class BalanceDisplayWidget extends StatefulWidget {
 class _BalanceDisplayWidgetState extends State<BalanceDisplayWidget> {
   late bool hidden;
 
-  Widget get ball {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 1),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Theme.of(context).colorScheme.onPrimary),
-      height: 18,
-      width: 18,
-    );
-  }
+  Widget get ball => Container(
+        margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 1),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Theme.of(context).colorScheme.onPrimary),
+        height: 18,
+        width: 18,
+      );
+
+  Widget balanceDisplay(balance) => hidden
+      ? Expanded(
+          flex: 0,
+          child: Row(
+            children: List.generate(widget.hiddenLength, (_) => ball),
+          ))
+      : Text(
+          '${balance}F',
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 36,
+              fontWeight: FontWeight.bold),
+        );
 
   @override
   void initState() {
@@ -51,20 +63,7 @@ class _BalanceDisplayWidgetState extends State<BalanceDisplayWidget> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              hidden
-                  ? Expanded(
-                      flex: 0,
-                      child: Row(
-                        children:
-                            List.generate(widget.hiddenLength, (_) => ball),
-                      ))
-                  : Text(
-                      '${formattedBalance}F',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold),
-                    ),
+              balanceDisplay(formattedBalance),
               const SizedBox(
                 width: 5,
               ),

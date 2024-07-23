@@ -6,6 +6,7 @@ import 'package:waveapp/widgets/pin_code.dart';
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
   final logoPath = 'assets/images/wave-logo-removebg.png';
+  static const routeName = '/auth';
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
