@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:waveapp/screens/home_screen.dart';
+import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/widgets/pin_code.dart';
 
 class AuthScreen extends StatefulWidget {

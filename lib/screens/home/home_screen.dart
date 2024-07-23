@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waveapp/widgets/balance_display_widget.dart';
-import 'package:waveapp/widgets/home_qr_code.dart';
+import 'package:waveapp/screens/home/home_qr_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
