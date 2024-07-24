@@ -9,5 +9,6 @@ class AppTheme {
     colorScheme: AppColors.lightColorScheme,
     fontFamily: 'Poppins',
     textTheme: AppTextTheme.light,
+    scaffoldBackgroundColor: AppColors.lightColorScheme.surface,
   );
 }

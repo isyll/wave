@@ -9,5 +9,9 @@
   "credit": "Crédit",
   "bank": "Banque",
   "gifts": "Cadeaux",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "settings": "Paramètres",
+  "share": "Partager",
+  "invite_friend": "Inviter un ami à rejoindre Wave",
+  "promo_code": "Utiliser un code promotionnel"
 }

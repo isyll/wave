@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/home/history/transaction_search.dart';
 import 'package:waveapp/screens/home/services/service_listing.dart';
+import 'package:waveapp/screens/settings/settings_screen.dart';
 import 'package:waveapp/services/data_service.dart';
 import 'package:waveapp/services/transactions/transaction.dart';
 import 'package:waveapp/widgets/balance_display_widget.dart';
@@ -49,10 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const BouncingScrollPhysics(),
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
                       SliverAppBar(
-                          leading: Icon(
-                            Icons.settings,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            size: 30,
+                          leading: IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, SettingsScreen.routeName);
+                            },
+                            icon: Icon(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              Icons.settings,
+                              size: 30,
+                            ),
                           ),
                           centerTitle: true,
                           stretch: true,

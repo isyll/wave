@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/screens/settings/settings_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -30,12 +31,13 @@ class App extends StatelessWidget {
       theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
       title: 'Wave by Isyll',
-      home: const HomeScreen(),
+      home: const AuthScreen(),
       locale: Constants.locale,
       supportedLocales: Constants.supportedLocales,
       routes: {
         AuthScreen.routeName: (context) => const AuthScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
+        SettingsScreen.routeName: (context) => const SettingsScreen()
       },
     );
   }
