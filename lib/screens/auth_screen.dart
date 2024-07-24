@@ -5,7 +5,6 @@ import 'package:waveapp/widgets/pin_code.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
-  final logoPath = 'assets/images/wave-logo-removebg.png';
   static const routeName = '/auth';
 
   @override
@@ -16,11 +15,9 @@ class _AuthScreenState extends State<AuthScreen> {
   String pinCode = '';
   int pinLength = 4;
 
-  // called when all pin digits are typed
   void onCompleted(int code) {
-    Future.delayed(const Duration(milliseconds: 200), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    Future.delayed(const Duration(milliseconds: 300), () {
+      Navigator.pushNamed(context, HomeScreen.routeName);
     });
   }
 
@@ -39,8 +36,8 @@ class _AuthScreenState extends State<AuthScreen> {
               children: [
                 const SizedBox(height: 50),
                 Image.asset(
+                  'assets/images/wave-logo-removebg.png',
                   width: 120,
-                  widget.logoPath,
                 ),
                 const SizedBox(height: 60),
                 SizedBox(

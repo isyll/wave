@@ -3,5 +3,10 @@
   "@@locale": "fr",
   "code_is_required": "Votre code secret est requis pour dévérouiller",
   "forgot_password": "oublié?",
-  "scan_qr_code": "Scanner"
+  "scan_qr_code": "Scanner",
+  "transfer": "Transfert",
+  "payment": "Paiements",
+  "credit": "Crédit",
+  "bank": "Banque",
+  "gifts": "Cadeaux"
 }

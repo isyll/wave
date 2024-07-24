@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id": "ATXQWDR2ARIMI",
+      "title": "Retrait",
+      "date": "2024-07-20T11:52:00+02:00",
+      "amount": 10000.0,
+      "status": "completed",
+      "newBalance": 8229.0,
+      "type": "withdrawal",
+      "fees": 0.0,
+      "agent_name": "M.C.I. Daba et Frères",
+      "extra": null
+    },
+    {
+      "id": "ATXQZDR2CRIMI",
+      "title": "Code Woyofal: 5055 5673 0846 3138 6121",
+      "date": "2024-07-21T15:13:00+02:00",
+      "amount": 1000.0,
+      "status": "completed",
+      "newBalance": 7229.0,
+      "type": "withdrawal",
+      "fees": 0.0,
+      "agent_name": null,
+      "extra": {
+        "service": "Woyofal",
+        "values": [
+          {
+            "display_brief": true,
+            "name": "Quantité",
+            "value": "(7.1 KWh)"
+          }
+        ]
+      }
+    }
+  ]
+}

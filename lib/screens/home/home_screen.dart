@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:waveapp/screens/home/home_body.dart';
+import 'package:waveapp/config/app.dart';
+import 'package:waveapp/screens/home/history/transaction_item.dart';
+import 'package:waveapp/screens/home/services/service_listing.dart';
+import 'package:waveapp/services/data_service.dart';
+import 'package:waveapp/services/transactions/transaction.dart';
 import 'package:waveapp/widgets/balance_display_widget.dart';
 import 'package:waveapp/screens/home/home_qr_code.dart';
 
@@ -12,6 +16,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late List<Transaction> _transactions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    DataService.loadTransactions().then((data) {
+      setState(() {
+        _transactions = data;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 )),
             SliverToBoxAdapter(
-                child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: const Stack(
+              child: Stack(
                 alignment: Alignment.topCenter,
                 children: [
                   Positioned(
@@ -44,11 +58,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       right: 0,
                       bottom: 0,
                       top: 100,
-                      child: HomeBody()),
-                  HomeQrCode(),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24))))),
+                  const HomeQrCode(),
                 ],
               ),
-            )),
+            ),
+            const SliverToBoxAdapter(child: ServiceListing()),
+            SliverToBoxAdapter(
+              child: Container(
+                color: const Color(0xfff0f0f0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 0, vertical: 6.0),
+              ),
+            ),
+            SliverList(
+                delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+              if (index < _transactions.length) {
+                return TransactionItem(transaction: _transactions[index]);
+              }
+              return const SizedBox();
+            }, childCount: AppConfig.maxHistoryItems))
           ],
         )));
   }

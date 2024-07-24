@@ -74,6 +74,13 @@ flutter:
   assets:
     - assets/images/wave-logo.png
     - assets/images/wave-logo-removebg.png
+    - assets/images/icons/home/User.png
+    - assets/images/icons/home/Cart.png
+    - assets/images/icons/home/Building.png
+    - assets/images/icons/home/Phone.png
+    - assets/images/icons/home/Gift.png
+
+    - assets/data/transactions.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

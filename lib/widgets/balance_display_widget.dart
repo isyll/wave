@@ -24,23 +24,27 @@ class _BalanceDisplayWidgetState extends State<BalanceDisplayWidget> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Theme.of(context).colorScheme.onPrimary),
-        height: 18,
-        width: 18,
+        height: 12,
+        width: 12,
       );
 
-  Widget balanceDisplay(balance) => hidden
-      ? Expanded(
-          flex: 0,
-          child: Row(
-            children: List.generate(widget.hiddenLength, (_) => ball),
-          ))
-      : Text(
-          '${balance}F',
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontSize: 36,
-              fontWeight: FontWeight.bold),
-        );
+  Widget get balanceDisplay {
+    final formattedBalance = formatNumber(widget.balance);
+
+    return hidden
+        ? Expanded(
+            flex: 0,
+            child: Row(
+              children: List.generate(widget.hiddenLength, (_) => ball),
+            ))
+        : Text(
+            '${formattedBalance}F',
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: 28,
+                fontWeight: FontWeight.bold),
+          );
+  }
 
   @override
   void initState() {
@@ -50,8 +54,6 @@ class _BalanceDisplayWidgetState extends State<BalanceDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final formattedBalance = formatNumber(widget.balance);
-
     return Center(
       child: TextButton(
           onPressed: () {
@@ -63,14 +65,14 @@ class _BalanceDisplayWidgetState extends State<BalanceDisplayWidget> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              balanceDisplay(formattedBalance),
+              balanceDisplay,
               const SizedBox(
                 width: 5,
               ),
               Icon(
                 hidden ? Icons.visibility : Icons.visibility_off,
                 color: Theme.of(context).colorScheme.surface,
-                size: 38,
+                size: 28,
               )
             ],
           )),
