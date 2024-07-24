@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:waveapp/config/constants.dart';
-import 'package:waveapp/screens/auth_screen.dart';
+import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
