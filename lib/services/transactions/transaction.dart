@@ -72,13 +72,13 @@ class Transaction {
         Transactiontype.payment
       ].contains(type);
 
-  String formatDate() {
+  String formatDate(String locale) {
     final now = DateTime.now();
 
     if (date.year == now.year) {
-      return DateFormat('d MMM HH:mm').format(date);
+      return DateFormat('d MMM HH:mm', locale).format(date);
     } else {
-      return DateFormat('d MMM yyyy, HH:mm').format(date);
+      return DateFormat('d MMM yyyy, HH:mm', locale).format(date);
     }
   }
 }

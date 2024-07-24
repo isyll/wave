@@ -38,6 +38,8 @@ class _TransactionItemState extends State<TransactionItem> {
 
   @override
   Widget build(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
+
     return Container(
         decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -59,7 +61,7 @@ class _TransactionItemState extends State<TransactionItem> {
                         fontSize: 20),
                   ),
                   Text(
-                    transaction.formatDate(),
+                    transaction.formatDate(currentLocale.languageCode),
                     style: const TextStyle(
                         color: Color(0xff808080),
                         fontWeight: FontWeight.w500,
