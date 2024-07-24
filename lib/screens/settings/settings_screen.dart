@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/settings/types/settings_item.dart';
+import 'package:waveapp/screens/settings/widgets/settings_footer.dart';
 import 'package:waveapp/screens/settings/widgets/settings_group.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -15,7 +16,10 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(l.settings), backgroundColor: Colors.grey.shade100),
-      body: ListView(children: groups),
+      body: ListView(children: [
+        ...groups,
+        const SingleChildScrollView(child: SettingsFooter())
+      ]),
       backgroundColor: Colors.grey.shade100,
     );
   }
