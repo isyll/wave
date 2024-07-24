@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/widgets/pin_code.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -20,7 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
     context.loaderOverlay.show();
     Future.delayed(const Duration(milliseconds: 1000), () {
       context.loaderOverlay.hide();
-      //   Navigator.pushNamed(context, HomeScreen.routeName);
+        Navigator.pushNamed(context, HomeScreen.routeName);
     });
   }
 
