@@ -13,5 +13,14 @@
   "settings": "Paramètres",
   "share": "Partager",
   "invite_friend": "Inviter un ami à rejoindre Wave",
-  "promo_code": "Utiliser un code promotionnel"
+  "promo_code": "Utiliser un code promotionnel",
+  "support": "Support",
+  "emergency_service": "Appelez le service d'urgence gratuitement",
+  "verify_limit": "Vérifier votre plafond",
+  "find_agents": "Trouvez des agents à proximité",
+  "security": "Sécurité",
+  "connected_devices": "Appareils connectés",
+  "secret_code": "Modifier votre code secret",
+  "disconnect": "Se déconnecter",
+  "open_until_10": "Ouvert jusqu'à 22H"
 }

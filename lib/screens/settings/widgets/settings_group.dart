@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:waveapp/screens/settings/types/settings_item.dart';
 
 class SettingsGroup extends StatelessWidget {
-  const SettingsGroup({super.key, required this.title, required this.items});
+  const SettingsGroup({super.key, this.title, required this.items});
 
-  final String title;
+  final String? title;
   final List<SettingsItem> items;
 
   @override
@@ -12,12 +12,14 @@ class SettingsGroup extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          title,
-          style: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.45)),
-        ),
+        if (title != null)
+          Text(
+            title!,
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color:
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.45)),
+          ),
         const SizedBox(
           height: 14,
         ),
@@ -31,9 +33,11 @@ class SettingsGroup extends StatelessWidget {
               padding: EdgeInsets.zero,
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(14),
-                      topRight: Radius.circular(14))),
+                  borderRadius: items.length == 1
+                      ? const BorderRadius.all(Radius.circular(14))
+                      : const BorderRadius.only(
+                          topLeft: Radius.circular(14),
+                          topRight: Radius.circular(14))),
               child: _Setting(value),
             );
           } else if (key == items.length - 1) {
@@ -49,7 +53,9 @@ class SettingsGroup extends StatelessWidget {
             );
           }
 
-          return _Setting(value);
+          return Container(
+              color: Theme.of(context).colorScheme.surface,
+              child: _Setting(value));
         })
       ]),
     );
@@ -79,7 +85,18 @@ class _Setting extends StatelessWidget {
                 item.title,
                 softWrap: true,
               ),
-              if (item.subTitle != null) Text(item.subTitle!)
+              if (item.subTitle != null)
+                Text(
+                  item.subTitle!,
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.45),
+                  ),
+                )
             ],
           ))
         ],

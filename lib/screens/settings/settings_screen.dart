@@ -34,7 +34,7 @@ List<SettingsGroup> data(BuildContext context) {
               size: 40,
             ),
             title: l.invite_friend,
-            action: const SettingsScreen()),
+            actionRoute: SettingsScreen.routeName),
         SettingsItem(
             icon: Image.asset(
               'assets/images/icons/settings/blink.png',
@@ -42,7 +42,64 @@ List<SettingsGroup> data(BuildContext context) {
               height: 40,
             ),
             title: l.promo_code,
-            action: const SettingsScreen())
+            actionRoute: SettingsScreen.routeName)
+      ],
+    ),
+    SettingsGroup(
+      title: l.support,
+      items: [
+        SettingsItem(
+            icon: const Icon(
+              Icons.phone,
+              size: 40,
+            ),
+            title: l.emergency_service,
+            subTitle: l.open_until_10,
+            actionRoute: SettingsScreen.routeName),
+        SettingsItem(
+            icon: const Icon(
+              Icons.notes,
+              size: 40,
+            ),
+            title: l.verify_limit,
+            actionRoute: SettingsScreen.routeName),
+        SettingsItem(
+            icon: const Icon(
+              Icons.location_on_rounded,
+              size: 40,
+            ),
+            title: l.find_agents,
+            actionRoute: SettingsScreen.routeName)
+      ],
+    ),
+    SettingsGroup(
+      title: l.security,
+      items: [
+        SettingsItem(
+            icon: const Icon(
+              Icons.phone_android,
+              size: 40,
+            ),
+            title: l.connected_devices,
+            actionRoute: SettingsScreen.routeName),
+        SettingsItem(
+            icon: const Icon(
+              Icons.shield,
+              size: 40,
+            ),
+            title: l.secret_code,
+            actionRoute: SettingsScreen.routeName)
+      ],
+    ),
+    SettingsGroup(
+      items: [
+        SettingsItem(
+            icon: const Icon(
+              Icons.logout,
+              size: 40,
+            ),
+            title: l.disconnect,
+            actionRoute: SettingsScreen.routeName)
       ],
     )
   ];

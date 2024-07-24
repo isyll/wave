@@ -5,10 +5,10 @@ class SettingsItem {
       {required this.icon,
       required this.title,
       this.subTitle,
-      required this.action});
+      required this.actionRoute});
 
   final Widget icon;
   final String title;
   final String? subTitle;
-  final Widget action;
+  final String actionRoute;
 }
