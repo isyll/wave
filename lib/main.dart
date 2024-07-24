@@ -31,7 +31,7 @@ class App extends StatelessWidget {
       theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
       title: 'Wave by Isyll',
-      initialRoute: SettingsScreen.routeName,
+      initialRoute: AuthScreen.routeName,
       locale: Constants.locale,
       supportedLocales: Constants.supportedLocales,
       routes: {
