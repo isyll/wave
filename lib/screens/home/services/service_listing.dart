@@ -10,66 +10,72 @@ class ServiceListing extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
 
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
       child: Center(
-        child: Wrap(spacing: 8, runSpacing: 16, children: [
-          _ServiceButton(
-              onPressed: () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
-              },
-              text: l.transfer,
-              child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color(0xffdee5ff)),
-                  child: Image.asset('assets/images/icons/home/User.png'))),
-          _ServiceButton(
-              onPressed: () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
-              },
-              text: l.payment,
-              child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color(0xfffff8d2)),
-                  child: Image.asset('assets/images/icons/home/Cart.png'))),
-          _ServiceButton(
-              onPressed: () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
-              },
-              text: l.credit,
-              child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color(0xffe4f7ff)),
-                  child: Image.asset('assets/images/icons/home/Phone.png'))),
-          _ServiceButton(
-              onPressed: () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
-              },
-              text: l.bank,
-              child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color(0xfffff0f0)),
-                  child: Image.asset('assets/images/icons/home/Building.png'))),
-          _ServiceButton(
-              onPressed: () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
-              },
-              text: l.gifts,
-              child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color(0xffe3ffdf)),
-                  child: Image.asset('assets/images/icons/home/Gift.png')))
-        ]),
+        child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            spacing: 0,
+            runSpacing: 0,
+            children: [
+              _ServiceButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                  text: l.transfer,
+                  child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color(0xffdee5ff)),
+                      child: Image.asset('assets/images/icons/home/User.png'))),
+              _ServiceButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                  text: l.payment,
+                  child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color(0xfffff8d2)),
+                      child: Image.asset('assets/images/icons/home/Cart.png'))),
+              _ServiceButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                  text: l.credit,
+                  child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color(0xffe4f7ff)),
+                      child:
+                          Image.asset('assets/images/icons/home/Phone.png'))),
+              _ServiceButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                  text: l.bank,
+                  child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color(0xfffff0f0)),
+                      child: Image.asset(
+                          'assets/images/icons/home/Building.png'))),
+              _ServiceButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                  text: l.gifts,
+                  child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color(0xffe3ffdf)),
+                      child: Image.asset('assets/images/icons/home/Gift.png')))
+            ]),
       ),
     );
   }

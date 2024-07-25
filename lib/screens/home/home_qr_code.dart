@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:waveapp/screens/home/qr_code/qr_code_screen.dart';
+import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 
 class HomeQrCode extends StatefulWidget {
   const HomeQrCode({super.key});
@@ -21,8 +21,8 @@ class _HomeQrCodeState extends State<HomeQrCode> {
         child: Stack(
           children: [
             Container(
-              width: 320,
-              height: 184,
+              width: 306,
+              height: 180,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: Theme.of(context).colorScheme.secondary),

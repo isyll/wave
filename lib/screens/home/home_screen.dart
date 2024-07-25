@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           TransactionItem(transaction: _transactions[i]),
                         const TransactionSearch(),
                         Container(
-                          height: 500,
+                          height: 100,
                         ),
                       ],
                     ))),

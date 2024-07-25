@@ -5,7 +5,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
-import 'package:waveapp/screens/home/qr_code/qr_code_screen.dart';
+import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

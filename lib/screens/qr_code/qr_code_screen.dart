@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:waveapp/screens/home/qr_code/widgets/display_qr_code.dart';
-import 'package:waveapp/screens/home/qr_code/widgets/scan_qr_code.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:waveapp/screens/qr_code/widgets/display_qr_code.dart';
+import 'package:waveapp/screens/qr_code/widgets/scan/scan_qr_code.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QrCodeScreen extends StatefulWidget {
@@ -20,12 +21,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
     });
   }
 
-  void _showScannerCode(dynamic data) {
-    print(data);
+  void _showScannerCode(BarcodeCapture data) {
+    print(data.toString());
   }
 
   Widget get _widget => _showScanner
-      ? ScanQrCode(onScanned: _showScannerCode)
+      ? ScanQrCode(onDetect: _showScannerCode)
       : const DisplayQrCode();
 
   Widget _textButton(String text, bool current) {
@@ -37,10 +38,11 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                 borderRadius: BorderRadius.circular(100)))),
         onPressed: _toggle,
         child: Text(
+            softWrap: false,
           text,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.w500,
-              fontSize: 18,
+              fontSize: 16,
               color: Theme.of(context).colorScheme.surface),
         ));
   }
@@ -59,21 +61,20 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
             left: 0,
             child: Container(
               padding: const EdgeInsets.all(5.0),
-              margin: const EdgeInsets.all(24),
+              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   color: Colors.black.withOpacity(0.75)),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: 170,
+                    width: 140,
                     child: _textButton(l.scan_code, _showScanner),
                   ),
-                  const SizedBox(width: 8.0),
                   SizedBox(
-                    width: 170,
+                    width: 140,
                     child: _textButton(l.my_card, !_showScanner),
                   )
                 ],
