@@ -22,5 +22,7 @@
   "connected_devices": "Appareils connectés",
   "secret_code": "Modifier votre code secret",
   "disconnect": "Se déconnecter",
-  "open_until_10": "Ouvert jusqu'à 22H"
+  "open_until_10": "Ouvert jusqu'à 22H",
+  "scan_code": "Scanner un code",
+  "my_card": "Ma carte"
 }

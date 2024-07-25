@@ -5,6 +5,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/screens/home/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,23 +17,22 @@ void main() async {
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp( App());
+    runApp(App());
   });
 }
 
 class App extends StatelessWidget {
-   App({super.key});
+  App({super.key});
 
   final navigatorKey = GlobalKey<NavigatorState>();
-
 
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
 
     final sessionConfig = SessionConfig(
-        invalidateSessionForAppLostFocus: const Duration(seconds: 15),
-        invalidateSessionForUserInactivity: const Duration(seconds: 15));
+        invalidateSessionForAppLostFocus: const Duration(seconds: 300),
+        invalidateSessionForUserInactivity: const Duration(seconds: 300));
 
     sessionConfig.stream.listen((SessionTimeoutState timeout) {
       if (timeout == SessionTimeoutState.userInactivityTimeout) {
@@ -61,7 +61,8 @@ class App extends StatelessWidget {
         routes: {
           AuthScreen.routeName: (context) => const AuthScreen(),
           HomeScreen.routeName: (context) => const HomeScreen(),
-          SettingsScreen.routeName: (context) => const SettingsScreen()
+          SettingsScreen.routeName: (context) => const SettingsScreen(),
+          QrCodeScreen.routeName: (context) => const QrCodeScreen()
         },
       ),
     );
