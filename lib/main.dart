@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
@@ -12,33 +13,50 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(const App());
+    runApp( App());
   });
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+   App({super.key});
+  final navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      theme: AppTheme.light,
-      debugShowCheckedModeBanner: false,
-      title: 'Wave by Isyll',
-      initialRoute: AuthScreen.routeName,
-      locale: Constants.locale,
-      supportedLocales: Constants.supportedLocales,
-      routes: {
-        AuthScreen.routeName: (context) => const AuthScreen(),
-        HomeScreen.routeName: (context) => const HomeScreen(),
-        SettingsScreen.routeName: (context) => const SettingsScreen()
-      },
+    final sessionConfig = SessionConfig(
+        invalidateSessionForAppLostFocus: const Duration(seconds: 15),
+        invalidateSessionForUserInactivity: const Duration(seconds: 15));
+
+    sessionConfig.stream.listen((SessionTimeoutState timeout) {
+      if (timeout == SessionTimeoutState.userInactivityTimeout) {
+        navigatorKey.currentState!.pushReplacementNamed(AuthScreen.routeName);
+      } else if (timeout == SessionTimeoutState.appFocusTimeout) {
+        navigatorKey.currentState!.pushReplacementNamed(AuthScreen.routeName);
+      }
+    });
+
+    return SessionTimeoutManager(
+      sessionConfig: sessionConfig,
+      child: MaterialApp(
+            navigatorKey: navigatorKey,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        theme: AppTheme.light,
+        debugShowCheckedModeBanner: false,
+        title: 'Wave by Isyll',
+        home: const AuthScreen(),
+        locale: Constants.locale,
+        supportedLocales: Constants.supportedLocales,
+        routes: {
+          AuthScreen.routeName: (context) => const AuthScreen(),
+          HomeScreen.routeName: (context) => const HomeScreen(),
+          SettingsScreen.routeName: (context) => const SettingsScreen()
+        },
+      ),
     );
   }
 }
