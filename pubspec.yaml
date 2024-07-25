@@ -1,5 +1,5 @@
 name: waveapp
-description: 'Application Wave en Flutter développé .'
+description: 'Application Wave en Flutter.'
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -43,6 +43,7 @@ dependencies:
   loader_overlay: ^4.0.1
   flutter_spinkit: ^5.2.1
   local_session_timeout: ^3.1.0
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,22 @@ flutter_launcher_icons:
   ios: true
   image_path: 'assets/icons/wave_launcher_icon.png'
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: '#ffffff'
+  color_dark: '#ffffff'
+  image: 'assets/images/wave-4x.jpg'
+  image_dark: 'assets/images/wave-4x.jpg'
+  android_12:
+    color: '#ffffff'
+    color_dark: '#ffffff'
+    image: 'assets/images/wave-4x.jpg'
+    image_dark: 'assets/images/wave-4x.jpg'
+    android: true
+    ios: true
+  android: true
+  ios: true
+  web: false
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,6 +100,7 @@ flutter:
     - assets/images/icons/home/Phone.png
     - assets/images/icons/home/Gift.png
     - assets/images/icons/settings/blink.png
+    - assets/images/wave-4x.jpg
 
     - assets/data/transactions.json
 

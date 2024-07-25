@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
@@ -10,19 +11,46 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp( App());
+    runApp(const App());
   });
 }
 
-class App extends StatelessWidget {
-   App({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   final navigatorKey = GlobalKey<NavigatorState>();
 
   @override
+  void initState() {
+    super.initState();
+    // initialization();
+  }
+
+//   void initialization() async {
+//     print('ready in 3...');
+//     await Future.delayed(const Duration(seconds: 1));
+//     print('ready in 2...');
+//     await Future.delayed(const Duration(seconds: 1));
+//     print('ready in 1...');
+//     await Future.delayed(const Duration(seconds: 1));
+//     print('go!');
+//     FlutterNativeSplash.remove();
+//   }
+
+  @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
+
     final sessionConfig = SessionConfig(
         invalidateSessionForAppLostFocus: const Duration(seconds: 15),
         invalidateSessionForUserInactivity: const Duration(seconds: 15));
@@ -38,7 +66,7 @@ class App extends StatelessWidget {
     return SessionTimeoutManager(
       sessionConfig: sessionConfig,
       child: MaterialApp(
-            navigatorKey: navigatorKey,
+        navigatorKey: navigatorKey,
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
