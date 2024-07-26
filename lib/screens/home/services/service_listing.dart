@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/screens/transactions/choose_contact.dart';
 
 class ServiceListing extends StatelessWidget {
   const ServiceListing({super.key});
@@ -20,7 +21,7 @@ class ServiceListing extends StatelessWidget {
             children: [
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.pushNamed(context, ChooseContact.routeName);
                   },
                   text: l.transfer,
                   child: Container(

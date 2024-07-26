@@ -32,5 +32,8 @@
   "amount_sent": "Montant Envoyé",
   "amount_received": "Montant Reçu",
   "fees_1pct": "Frais Wave = 1%",
-  "fees_max": "Frais maximum: 5000F"
+  "fees_max": "Frais maximum: 5000F",
+  "send_money": "Envoyer de l'argent",
+  "add_new_phone_number": "Saisir un nouveau numéro",
+  "scan_for_send": "Scanner pour envoyer"
 }
