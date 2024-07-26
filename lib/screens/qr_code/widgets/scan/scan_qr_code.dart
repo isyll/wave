@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/qr_code/widgets/scan/qr_button_widgets.dart';
 import 'package:waveapp/screens/qr_code/widgets/scan/qr_overlay.dart';
 import 'package:waveapp/screens/transactions/transfer/transfer_screen.dart';
+import 'package:waveapp/screens/transactions/transfer/transfer_screen_arguments.dart';
 
 class ScanQrCode extends StatefulWidget {
   const ScanQrCode({super.key});
@@ -31,7 +32,9 @@ class _ScanQrCodeState extends State<ScanQrCode> with WidgetsBindingObserver {
       barcode = barcodes.barcodes.firstOrNull;
 
       await audioPlayer.play(AssetSource('sounds/beep.mp3'));
-      navigator.pushReplacementNamed(TransferScreen.routeName);
+      navigator.pushReplacementNamed(TransferScreen.routeName,
+          arguments: const TransferScreenArguments(
+              name: 'Khadidiatou Sylla', phoneNumber: '+221 77 579 91 47'));
     }
   }
 

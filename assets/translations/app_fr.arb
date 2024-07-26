@@ -26,5 +26,9 @@
   "scan_code": "Scanner un code",
   "my_card": "Ma carte",
   "scan_for_pay": "Scanner le Code QR pour payer ou envoyer",
-  "transfer_money": "Transférer de l'argent"
+  "transfer_money": "Transférer de l'argent",
+  "transfer_to": "À",
+  "transfer_send": "Envoyer",
+  "amount_sent": "Montant Envoyé",
+  "amount_received": "Montant Reçu"
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:waveapp/config/app.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
@@ -19,11 +20,11 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatefulWidget {
-  App({super.key});
+  const App({super.key});
 
   @override
   State<App> createState() => _AppState();
@@ -33,8 +34,10 @@ class _AppState extends State<App> {
   final navigatorKey = GlobalKey<NavigatorState>();
   final routeObserver = RouteObserver<PageRoute>();
   final sessionConfig = SessionConfig(
-      invalidateSessionForAppLostFocus: const Duration(seconds: 300),
-      invalidateSessionForUserInactivity: const Duration(seconds: 300));
+      invalidateSessionForAppLostFocus:
+          const Duration(seconds: AppConfig.appLostFocusTimeout),
+      invalidateSessionForUserInactivity:
+          const Duration(seconds: AppConfig.userInactivityTimeout));
 
   late StreamSubscription sessionConfigStreamSubscription;
 
