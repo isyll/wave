@@ -1,53 +1,38 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/qr_code/widgets/scan/qr_button_widgets.dart';
 import 'package:waveapp/screens/qr_code/widgets/scan/qr_overlay.dart';
+import 'package:waveapp/screens/transactions/transfer/transfer_screen.dart';
 
 class ScanQrCode extends StatefulWidget {
-  const ScanQrCode({super.key, required this.onDetect});
-
-  final Function(BarcodeCapture data) onDetect;
+  const ScanQrCode({super.key});
 
   @override
   State<ScanQrCode> createState() => _ScanQrCodeState();
 }
 
 class _ScanQrCodeState extends State<ScanQrCode> with WidgetsBindingObserver {
-  StreamSubscription<Object?>? _subscription;
+  StreamSubscription<Object?>? subscription;
+  Barcode? barcode;
   final controller = MobileScannerController(
-    autoStart: false,
-    torchEnabled: false,
-    useNewCameraSelector: true,
-  );
+      autoStart: true,
+      torchEnabled: false,
+      useNewCameraSelector: true,
+      detectionSpeed: DetectionSpeed.noDuplicates);
+  final audioPlayer = AudioPlayer();
 
-  AppLocalizations get l => AppLocalizations.of(context)!;
-  Widget get _overlay {
-    return Container(
-      decoration: BoxDecoration(color: Colors.black.withOpacity(0.6)),
-      child: Column(
-        children: [
-          Expanded(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.close)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.flash_on)),
-            ],
-          )),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(16)),
-            height: 200,
-            width: 200,
-          ),
-          TextButton(onPressed: () {}, child: Text(l.scan_for_pay))
-        ],
-      ),
-    );
+  void handleBarcodes(BarcodeCapture barcodes) async {
+    if (mounted) {
+      final navigator = Navigator.of(context);
+      barcode = barcodes.barcodes.firstOrNull;
+
+      await audioPlayer.play(AssetSource('sounds/beep.mp3'));
+      navigator.pushReplacementNamed(TransferScreen.routeName);
+    }
   }
 
   @override
@@ -55,7 +40,7 @@ class _ScanQrCodeState extends State<ScanQrCode> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    _subscription = controller.barcodes.listen(widget.onDetect);
+    subscription = controller.barcodes.listen(handleBarcodes);
 
     unawaited(controller.start());
   }
@@ -72,18 +57,19 @@ class _ScanQrCodeState extends State<ScanQrCode> with WidgetsBindingObserver {
       case AppLifecycleState.paused:
         return;
       case AppLifecycleState.resumed:
-        _subscription = controller.barcodes.listen(widget.onDetect);
+        subscription = controller.barcodes.listen(handleBarcodes);
 
         unawaited(controller.start());
       case AppLifecycleState.inactive:
-        unawaited(_subscription?.cancel());
-        _subscription = null;
+        unawaited(subscription?.cancel());
+        subscription = null;
         unawaited(controller.stop());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final size = MediaQuery.sizeOf(context).width * 0.85;
     final scanWindow = Rect.fromCenter(
       center: MediaQuery.sizeOf(context).center(Offset.zero),
@@ -97,7 +83,6 @@ class _ScanQrCodeState extends State<ScanQrCode> with WidgetsBindingObserver {
       fit: StackFit.expand,
       children: [
         MobileScanner(
-          onDetect: widget.onDetect,
           controller: controller,
           scanWindow: scanWindow,
         ),
@@ -156,8 +141,8 @@ class _ScanQrCodeState extends State<ScanQrCode> with WidgetsBindingObserver {
   @override
   Future<void> dispose() async {
     WidgetsBinding.instance.removeObserver(this);
-    unawaited(_subscription?.cancel());
-    _subscription = null;
+    unawaited(subscription?.cancel());
+    subscription = null;
     super.dispose();
     await controller.dispose();
   }

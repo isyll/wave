@@ -1,5 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:waveapp/screens/qr_code/widgets/display_qr_code.dart';
 import 'package:waveapp/screens/qr_code/widgets/scan/scan_qr_code.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,21 +13,17 @@ class QrCodeScreen extends StatefulWidget {
 }
 
 class _QrCodeScreenState extends State<QrCodeScreen> {
-  bool _showScanner = true;
+  bool showScanner = true;
+  final AudioPlayer audioPlayer = AudioPlayer();
 
-  void _toggle() {
+  void toggle() {
     setState(() {
-      _showScanner = !_showScanner;
+      showScanner = !showScanner;
     });
   }
 
-  void _showScannerCode(BarcodeCapture data) {
-    print(data.toString());
-  }
-
-  Widget get _widget => _showScanner
-      ? ScanQrCode(onDetect: _showScannerCode)
-      : const DisplayQrCode();
+  Widget get _widget =>
+      showScanner ? ScanQrCode() : const DisplayQrCode();
 
   Widget _textButton(String text, bool current) {
     return TextButton(
@@ -36,9 +32,9 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                 current ? Colors.white54 : Colors.transparent),
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)))),
-        onPressed: _toggle,
+        onPressed: toggle,
         child: Text(
-            softWrap: false,
+          softWrap: false,
           text,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.w500,
@@ -71,11 +67,11 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                 children: [
                   SizedBox(
                     width: 140,
-                    child: _textButton(l.scan_code, _showScanner),
+                    child: _textButton(l.scan_code, showScanner),
                   ),
                   SizedBox(
                     width: 140,
-                    child: _textButton(l.my_card, !_showScanner),
+                    child: _textButton(l.my_card, !showScanner),
                   )
                 ],
               ),

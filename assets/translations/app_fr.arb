@@ -25,5 +25,6 @@
   "open_until_10": "Ouvert jusqu'à 22H",
   "scan_code": "Scanner un code",
   "my_card": "Ma carte",
-  "scan_for_pay": "Scanner le Code QR pour payer ou envoyer"
+  "scan_for_pay": "Scanner le Code QR pour payer ou envoyer",
+  "transfer_money": "Transférer de l'argent"
 }
