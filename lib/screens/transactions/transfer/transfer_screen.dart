@@ -110,7 +110,19 @@ class _TransferScreenState extends State<TransferScreen> {
                     controller: amountReceivedController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(labelText: l.amount_received),
-                  )
+                  ),
+                  const SizedBox(height: 8),
+                  ...[l.fees_1pct, l.fees_max].map((text) => Container(
+                        padding: EdgeInsets.zero,
+                        width: double.infinity,
+                        child: Text(
+                          text,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary),
+                        ),
+                      )),
                 ],
               ),
             ),

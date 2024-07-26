@@ -30,5 +30,7 @@
   "transfer_to": "À",
   "transfer_send": "Envoyer",
   "amount_sent": "Montant Envoyé",
-  "amount_received": "Montant Reçu"
+  "amount_received": "Montant Reçu",
+  "fees_1pct": "Frais Wave = 1%",
+  "fees_max": "Frais maximum: 5000F"
 }
