@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:waveapp/models/contact_model.dart';
 import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/transactions/contacts/contacts_list.dart';
@@ -21,6 +22,7 @@ class _ChooseRecipientScreenState extends State<ChooseRecipientScreen> {
   List<ContactModel> contacts = [];
   List<ContactModel> allContacts = [];
   final searchController = TextEditingController();
+  late FocusNode focusNode;
 
   AppLocalizations get l => AppLocalizations.of(context)!;
 
@@ -53,7 +55,12 @@ class _ChooseRecipientScreenState extends State<ChooseRecipientScreen> {
   @override
   void initState() {
     super.initState();
-    fetchContacts();
+    focusNode = FocusNode();
+    context.loaderOverlay.show();
+    fetchContacts().then((_) {
+      context.loaderOverlay.hide();
+      focusNode.requestFocus();
+    });
     searchController.addListener(filterContacts);
   }
 
@@ -68,6 +75,7 @@ class _ChooseRecipientScreenState extends State<ChooseRecipientScreen> {
             SliverList(
                 delegate: SliverChildListDelegate([
               TextField(
+                focusNode: focusNode,
                 controller: searchController,
                 decoration: InputDecoration(labelText: l.transfer_to),
               ),
@@ -138,6 +146,7 @@ class _ChooseRecipientScreenState extends State<ChooseRecipientScreen> {
   @override
   void dispose() {
     super.dispose();
+    focusNode.dispose();
     searchController.removeListener(filterContacts);
     searchController.dispose();
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/transactions/details/transaction_details_arguments.dart';
@@ -25,12 +24,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   void loadTransactions() {
     context.loaderOverlay.show();
-    Future.delayed(const Duration(milliseconds: 1650), () async {
+    Future.delayed(const Duration(milliseconds: 1000), () async {
       allTransactions = await DataService.loadTransactions();
 
       setState(() {
         transactions = allTransactions;
-        // context.loaderOverlay.hide();
+        context.loaderOverlay.hide();
       });
     });
   }
@@ -86,86 +85,75 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
 
-    return LoaderOverlay(
-      useDefaultLoading: false,
-      overlayColor: Colors.black.withOpacity(0.25),
-      overlayWidgetBuilder: (_) => Center(
-        child: SpinKitRing(
-          lineWidth: 4,
-          color: Colors.black.withOpacity(0.5),
-          size: 50.0,
-        ),
-      ),
-      child: Scaffold(
+    return Scaffold(
+        backgroundColor: const Color(0xfff3f4f6),
+        appBar: AppBar(
           backgroundColor: const Color(0xfff3f4f6),
-          appBar: AppBar(
-            backgroundColor: const Color(0xfff3f4f6),
-            surfaceTintColor: const Color(0xfff3f4f6),
-            title: Text(l.transactions),
-          ),
-          body: Column(
-            children: [
-              Container(
-                color: const Color(0xfff3f4f6),
-                padding: const EdgeInsets.all(12.0),
-                child: TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      prefixIcon: const Icon(Icons.search),
-                      labelText: l.search,
-                      filled: true,
-                      fillColor: const Color(0xffe5e5e5),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(14))),
-                ),
+          surfaceTintColor: const Color(0xfff3f4f6),
+          title: Text(l.transactions),
+        ),
+        body: Column(
+          children: [
+            Container(
+              color: const Color(0xfff3f4f6),
+              padding: const EdgeInsets.all(12.0),
+              child: TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    prefixIcon: const Icon(Icons.search),
+                    labelText: l.search,
+                    filled: true,
+                    fillColor: const Color(0xffe5e5e5),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(14))),
               ),
-              Container(
-                color: const Color(0xfff3f4f6),
-                padding: const EdgeInsets.all(12.0),
-                child: Row(children: [
-                  textButton(l.transfers, Icons.person),
-                  const SizedBox(width: 16),
-                  textButton(l.invoices, Icons.receipt),
-                ]),
-              ),
-              if (transactions.isNotEmpty)
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                              TransactionDetailsScreen.routeName,
-                              arguments: TransactionDetailsArguments(
-                                  transaction: transactions[index]));
-                        },
-                        child: TransactionItem(
-                          transaction: transactions[index],
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface,
-                              borderRadius: index == 0
-                                  ? const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20))
-                                  : index == transactions.length - 1
-                                      ? const BorderRadius.only(
-                                          bottomLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20))
-                                      : null),
-                        ),
+            ),
+            Container(
+              color: const Color(0xfff3f4f6),
+              padding: const EdgeInsets.all(12.0),
+              child: Row(children: [
+                textButton(l.transfers, Icons.person),
+                const SizedBox(width: 16),
+                textButton(l.invoices, Icons.receipt),
+              ]),
+            ),
+            if (transactions.isNotEmpty)
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                            TransactionDetailsScreen.routeName,
+                            arguments: TransactionDetailsArguments(
+                                transaction: transactions[index]));
+                      },
+                      child: TransactionItem(
+                        transaction: transactions[index],
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: index == 0
+                                ? const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20))
+                                : index == transactions.length - 1
+                                    ? const BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20))
+                                    : null),
                       ),
-                      itemCount: transactions.length,
                     ),
+                    itemCount: transactions.length,
                   ),
-                )
-            ],
-          )),
-    );
+                ),
+              )
+          ],
+        ));
   }
 
   @override

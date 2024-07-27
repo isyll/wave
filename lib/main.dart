@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:waveapp/config/app.dart';
 import 'package:waveapp/config/constants.dart';
@@ -65,32 +67,43 @@ class _AppState extends State<App> {
 
     return SessionTimeoutManager(
       sessionConfig: sessionConfig,
-      child: MaterialApp(
-        navigatorObservers: [routeObserver],
-        navigatorKey: navigatorKey,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        theme: AppTheme.light,
-        debugShowCheckedModeBanner: false,
-        title: 'Wave by Isyll',
-        initialRoute: AuthScreen.routeName,
-        locale: Constants.locale,
-        supportedLocales: Constants.supportedLocales,
-        routes: {
-          AuthScreen.routeName: (context) => const AuthScreen(),
-          HomeScreen.routeName: (context) => const HomeScreen(),
-          SettingsScreen.routeName: (context) => const SettingsScreen(),
-          QrCodeScreen.routeName: (context) => const QrCodeScreen(),
-          TransferScreen.routeName: (context) => const TransferScreen(),
-          ChooseRecipientScreen.routeName: (context) => const ChooseRecipientScreen(),
-          NewNumberScreen.routeName: (context) => const NewNumberScreen(),
-          HistoryScreen.routeName: (context) => const HistoryScreen(),
-          TransactionDetailsScreen.routeName: (context) => const TransactionDetailsScreen()
-        },
+      child: GlobalLoaderOverlay(
+      useDefaultLoading: false,
+      overlayColor: Colors.black.withOpacity(0.25),
+      overlayWidgetBuilder: (_) => Center(
+        child: SpinKitRing(
+          lineWidth: 4,
+          color: Colors.black.withOpacity(0.5),
+          size: 50.0,
+        ),
+      ),
+        child: MaterialApp(
+          navigatorObservers: [routeObserver],
+          navigatorKey: navigatorKey,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          theme: AppTheme.light,
+          debugShowCheckedModeBanner: false,
+          title: 'Wave by Isyll',
+          initialRoute: AuthScreen.routeName,
+          locale: Constants.locale,
+          supportedLocales: Constants.supportedLocales,
+          routes: {
+            AuthScreen.routeName: (context) => const AuthScreen(),
+            HomeScreen.routeName: (context) => const HomeScreen(),
+            SettingsScreen.routeName: (context) => const SettingsScreen(),
+            QrCodeScreen.routeName: (context) => const QrCodeScreen(),
+            TransferScreen.routeName: (context) => const TransferScreen(),
+            ChooseRecipientScreen.routeName: (context) => const ChooseRecipientScreen(),
+            NewNumberScreen.routeName: (context) => const NewNumberScreen(),
+            HistoryScreen.routeName: (context) => const HistoryScreen(),
+            TransactionDetailsScreen.routeName: (context) => const TransactionDetailsScreen()
+          },
+        ),
       ),
     );
   }
