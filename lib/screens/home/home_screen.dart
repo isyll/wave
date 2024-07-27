@@ -5,6 +5,8 @@ import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/home/history/transaction_search.dart';
 import 'package:waveapp/screens/home/services/service_listing.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
+import 'package:waveapp/screens/transactions/details/transaction_details_arguments.dart';
+import 'package:waveapp/screens/transactions/details/transaction_details_screen.dart';
 import 'package:waveapp/services/data_service.dart';
 import 'package:waveapp/services/transactions/transaction.dart';
 import 'package:waveapp/widgets/balance_display_widget.dart';
@@ -120,7 +122,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               horizontal: 0, vertical: 6.0),
                         ),
                         for (int i = 0; i < transactions.length; i++)
-                          TransactionItem(transaction: transactions[i]),
+                          InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    TransactionDetailsScreen.routeName,
+                                    arguments: TransactionDetailsArguments(
+                                        transaction: transactions[i]));
+                              },
+                              child: TransactionItem(
+                                  transaction: transactions[i])),
                         const TransactionSearch(),
                         Container(
                           height: 100,

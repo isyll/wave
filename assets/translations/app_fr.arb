@@ -38,5 +38,17 @@
   "scan_for_send": "Scanner pour envoyer",
   "transactions": "Transactions",
   "transfers": "Transferts",
-  "invoices": "Factures"
+  "invoices": "Factures",
+  "received_amount": "Montant",
+  "fees": "Frais",
+  "status": "Statut",
+  "date_and_time": "Date et heure",
+  "new_balance": "Nouveau solde",
+  "transaction_id": "ID de la transaction",
+  "transaction_status_completed": "Effectué",
+  "transaction_status_failed": "Rejeté",
+  "transaction_status_canceled": "Annulé",
+  "transaction_status_": "Effectué",
+  "transaction_status_onhold": "En attente",
+  "transaction_status_inprogress": "En cours"
 }

@@ -11,6 +11,7 @@ import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
 import 'package:waveapp/screens/transactions/choose_recipient_screen.dart';
+import 'package:waveapp/screens/transactions/details/transaction_details_screen.dart';
 import 'package:waveapp/screens/transactions/history/history_screen.dart';
 import 'package:waveapp/screens/transactions/new_number_screen.dart';
 import 'package:waveapp/screens/transactions/transfer/transfer_screen.dart';
@@ -87,7 +88,8 @@ class _AppState extends State<App> {
           TransferScreen.routeName: (context) => const TransferScreen(),
           ChooseRecipientScreen.routeName: (context) => const ChooseRecipientScreen(),
           NewNumberScreen.routeName: (context) => const NewNumberScreen(),
-          HistoryScreen.routeName: (context) => const HistoryScreen()
+          HistoryScreen.routeName: (context) => const HistoryScreen(),
+          TransactionDetailsScreen.routeName: (context) => const TransactionDetailsScreen()
         },
       ),
     );

@@ -105,6 +105,7 @@ flutter:
     - assets/images/icons/settings/blink.png
     - assets/images/wave-4x.jpg
     - assets/images/icons/contacts/avatar.png
+    - assets/images/icons/transactions/person.png
 
     - assets/data/transactions.json
     - assets/data/names.json

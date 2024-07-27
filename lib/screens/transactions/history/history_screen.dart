@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
+import 'package:waveapp/screens/transactions/details/transaction_details_arguments.dart';
+import 'package:waveapp/screens/transactions/details/transaction_details_screen.dart';
 import 'package:waveapp/services/data_service.dart';
 import 'package:waveapp/services/transactions/transaction.dart';
 
@@ -135,19 +137,27 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(12)),
                     child: ListView.builder(
-                      itemBuilder: (context, index) => TransactionItem(
-                        transaction: transactions[index],
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius: index == 0
-                                ? const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20))
-                                : index == transactions.length - 1
-                                    ? const BorderRadius.only(
-                                        bottomLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20))
-                                    : null),
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                              TransactionDetailsScreen.routeName,
+                              arguments: TransactionDetailsArguments(
+                                  transaction: transactions[index]));
+                        },
+                        child: TransactionItem(
+                          transaction: transactions[index],
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: index == 0
+                                  ? const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20))
+                                  : index == transactions.length - 1
+                                      ? const BorderRadius.only(
+                                          bottomLeft: Radius.circular(20),
+                                          bottomRight: Radius.circular(20))
+                                      : null),
+                        ),
                       ),
                       itemCount: transactions.length,
                     ),

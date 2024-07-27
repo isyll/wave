@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:waveapp/services/transactions/transaction_status.dart';
 import 'package:waveapp/services/transactions/transaction_type.dart';
+import 'package:waveapp/utils/format.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Transaction {
   final String id;
@@ -72,7 +75,31 @@ class Transaction {
         Transactiontype.payment
       ].contains(type);
 
-  String get formattedAmount => '${isLess ? '-' : ''}$amount';
+  String get formattedAmount =>
+      '${isLess ? '-' : ''}${formatNumber(amount, replace: '.')}F';
+  String get formattedNewBalance =>
+      '${formatNumber(newBalance, replace: '.')}F';
+  String get formattedFees =>
+      '${fees == 0.0 ? 0 :formatNumber(fees, replace: '.')}F';
+
+  String statusToString(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
+    switch (status) {
+      case TransactionStatus.completed:
+        return l.transaction_status_completed;
+      case TransactionStatus.failed:
+        return l.transaction_status_failed;
+      case TransactionStatus.canceled:
+        return l.transaction_status_canceled;
+      case TransactionStatus.onHold:
+        return l.transaction_status_onhold;
+      case TransactionStatus.inProgress:
+        return l.transaction_status_inprogress;
+      default:
+        throw ArgumentError('Invalid transaction status: $status');
+    }
+  }
 
   String formatDate(String locale) {
     final now = DateTime.now();
