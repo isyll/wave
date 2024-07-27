@@ -1,6 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:waveapp/screens/qr_code/widgets/display_qr_code.dart';
+import 'package:waveapp/screens/qr_code/widgets/display/display_qr_code.dart';
 import 'package:waveapp/screens/qr_code/widgets/scan/scan_qr_code.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

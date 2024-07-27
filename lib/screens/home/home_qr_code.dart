@@ -14,7 +14,7 @@ class _HomeQrCodeState extends State<HomeQrCode> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        splashColor: Colors.black.withOpacity(0.2),
+        splashColor: Colors.black.withOpacity(0.6),
         onTap: () {
           Navigator.of(context).pushNamed(QrCodeScreen.routeName);
         },
