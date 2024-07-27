@@ -4,7 +4,9 @@ import 'package:waveapp/utils/format.dart';
 
 class TransactionItem extends StatefulWidget {
   final Transaction transaction;
-  const TransactionItem({super.key, required this.transaction});
+  final Decoration? decoration;
+
+  const TransactionItem({super.key, required this.transaction, this.decoration});
 
   @override
   State<TransactionItem> createState() => _TransactionItemState();
@@ -41,11 +43,11 @@ class _TransactionItemState extends State<TransactionItem> {
     Locale currentLocale = Localizations.localeOf(context);
 
     return Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
+        decoration: widget.decoration ?? BoxDecoration(color: Theme.of(context).colorScheme.surface),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(

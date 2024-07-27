@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:waveapp/screens/transactions/history/history_screen.dart';
 
 class TransactionSearch extends StatelessWidget {
   const TransactionSearch({super.key});
@@ -30,7 +31,9 @@ class _Button extends StatelessWidget {
               Theme.of(context).colorScheme.primary.withOpacity(0.2)),
           shape: WidgetStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100)))),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed(HistoryScreen.routeName);
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

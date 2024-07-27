@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/home/history/transaction_search.dart';
@@ -17,23 +19,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late List<Transaction> _transactions = [];
+  late List<Transaction> transactions = [];
 
-  Future<void> _loadTransactions() async {
-    // Fake fetch delay
-    return Future.delayed(const Duration(milliseconds: 650), () {
+  void loadTransactions() {
+    Future.delayed(const Duration(milliseconds: 350), () {
       DataService.loadTransactions().then((data) {
         setState(() {
-          _transactions = data;
+          transactions = data;
         });
       });
     });
   }
 
+  double get balance {
+    final random = Random();
+    const min = 500;
+    const max = 1000000;
+    final randomNumber = min + random.nextInt(max - min + 1);
+
+    return randomNumber.toDouble();
+  }
+
+  Future<void> refresh() async {
+    loadTransactions();
+  }
+
   @override
   void initState() {
     super.initState();
-    _loadTransactions();
+    loadTransactions();
   }
 
   @override
@@ -56,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context, SettingsScreen.routeName);
                             },
                             icon: Icon(
-                              color: Theme.of(context).colorScheme.onPrimary,
                               Icons.settings,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               size: 30,
                             ),
                           ),
@@ -70,17 +84,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           expandedHeight: 85,
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
-                          flexibleSpace: const FlexibleSpaceBar(
+                          flexibleSpace: FlexibleSpaceBar(
                             centerTitle: true,
                             expandedTitleScale: 1.2,
                             titlePadding: EdgeInsets.zero,
                             title: BalanceDisplayWidget(
-                              balance: 16218,
+                              balance: balance,
                             ),
                           )),
                     ],
                 body: RefreshIndicator(
-                    onRefresh: _loadTransactions,
+                    onRefresh: refresh,
                     child: ListView(
                       children: [
                         Stack(
@@ -105,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 0, vertical: 6.0),
                         ),
-                        for (int i = 0; i < _transactions.length; i++)
-                          TransactionItem(transaction: _transactions[i]),
+                        for (int i = 0; i < transactions.length; i++)
+                          TransactionItem(transaction: transactions[i]),
                         const TransactionSearch(),
                         Container(
                           height: 100,

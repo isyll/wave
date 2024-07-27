@@ -72,6 +72,8 @@ class Transaction {
         Transactiontype.payment
       ].contains(type);
 
+  String get formattedAmount => '${isLess ? '-' : ''}$amount';
+
   String formatDate(String locale) {
     final now = DateTime.now();
 
