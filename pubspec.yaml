@@ -107,6 +107,7 @@ flutter:
     - assets/images/icons/contacts/avatar.png
 
     - assets/data/transactions.json
+    - assets/data/names.json
 
     - assets/sounds/beep.mp3
 

@@ -15,7 +15,7 @@ class DataService {
 
   static Future<List<Person>> loadNames() async {
     final String jsonString =
-        await rootBundle.loadString('assets/data/transactions.json');
+        await rootBundle.loadString('assets/data/names.json');
     final jsonData = json.decode(jsonString)['data'] as List<dynamic>;
 
     return jsonData
