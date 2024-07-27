@@ -46,6 +46,7 @@ dependencies:
   flutter_native_splash: ^2.4.1
   mobile_scanner: ^5.1.1
   audioplayers: ^6.0.0
+  flutter_contacts: ^1.1.8
 
 dev_dependencies:
   flutter_test:
@@ -103,6 +104,7 @@ flutter:
     - assets/images/icons/home/Gift.png
     - assets/images/icons/settings/blink.png
     - assets/images/wave-4x.jpg
+    - assets/images/icons/contacts/avatar.png
 
     - assets/data/transactions.json
 

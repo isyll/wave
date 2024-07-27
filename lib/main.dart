@@ -10,7 +10,8 @@ import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
-import 'package:waveapp/screens/transactions/choose_contact.dart';
+import 'package:waveapp/screens/transactions/choose_recipient_screen.dart';
+import 'package:waveapp/screens/transactions/new_number_screen.dart';
 import 'package:waveapp/screens/transactions/transfer/transfer_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -83,7 +84,8 @@ class _AppState extends State<App> {
           SettingsScreen.routeName: (context) => const SettingsScreen(),
           QrCodeScreen.routeName: (context) => const QrCodeScreen(),
           TransferScreen.routeName: (context) => const TransferScreen(),
-          ChooseContact.routeName: (context) => const ChooseContact()
+          ChooseRecipientScreen.routeName: (context) => const ChooseRecipientScreen(),
+          NewNumberScreen.routeName: (context) => const NewNumberScreen()
         },
       ),
     );
