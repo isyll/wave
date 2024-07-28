@@ -6,7 +6,8 @@ class TransactionItem extends StatefulWidget {
   final Transaction transaction;
   final Decoration? decoration;
 
-  const TransactionItem({super.key, required this.transaction, this.decoration});
+  const TransactionItem(
+      {super.key, required this.transaction, this.decoration});
 
   @override
   State<TransactionItem> createState() => _TransactionItemState();
@@ -43,8 +44,9 @@ class _TransactionItemState extends State<TransactionItem> {
     Locale currentLocale = Localizations.localeOf(context);
 
     return Container(
-        decoration: widget.decoration ?? BoxDecoration(color: Theme.of(context).colorScheme.surface),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+        decoration: widget.decoration ??
+            BoxDecoration(color: Theme.of(context).colorScheme.surface),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

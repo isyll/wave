@@ -122,7 +122,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
             if (transactions.isNotEmpty)
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.all(16),
+                  padding:
+                      const EdgeInsets.all(12),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(12)),
                   child: ListView.builder(
