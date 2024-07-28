@@ -107,6 +107,11 @@ flutter:
     - assets/images/icons/contacts/avatar.png
     - assets/images/icons/transactions/person.png
 
+    - assets/images/country_flags/SN.png
+    - assets/images/country_flags/ML.png
+    - assets/images/country_flags/BF.png
+    - assets/images/country_flags/CI.png
+
     - assets/data/transactions.json
     - assets/data/names.json
 

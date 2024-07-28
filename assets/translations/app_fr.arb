@@ -50,5 +50,7 @@
   "transaction_status_canceled": "Annulé",
   "transaction_status_": "Effectué",
   "transaction_status_onhold": "En attente",
-  "transaction_status_inprogress": "En cours"
+  "transaction_status_inprogress": "En cours",
+  "full_name": "Nom complet",
+  "select_your_country": "Sélectionner votre pays"
 }

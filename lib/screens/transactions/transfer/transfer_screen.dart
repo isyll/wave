@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/transactions/transfer/transfer_screen_arguments.dart';
 import 'package:waveapp/utils/number.dart';
+import 'package:waveapp/widgets/button.dart';
 
 class TransferScreen extends StatefulWidget {
   const TransferScreen({super.key});
@@ -127,30 +128,14 @@ class _TransferScreenState extends State<TransferScreen> {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            width: double.infinity,
-            child: TextButton(
-                onPressed: disabled
-                    ? null
-                    : () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(HomeScreen.routeName);
-                      },
-                style: ButtonStyle(
-                    alignment: Alignment.center,
-                    backgroundColor: WidgetStateProperty.resolveWith(
-                        (Set<WidgetState> states) =>
-                            states.contains(WidgetState.disabled)
-                                ? const Color(0xffa1e7ff)
-                                : Theme.of(context).colorScheme.secondary)),
-                child: Text(
-                  l.transfer_send,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 24),
-                )),
-          )
+          Button(
+              text: l.transfer_send,
+              onPressed: disabled
+                  ? null
+                  : () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(HomeScreen.routeName);
+                    })
         ],
       ),
     );
