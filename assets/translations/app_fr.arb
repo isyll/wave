@@ -56,5 +56,9 @@
   "search_by_name": "Rechercher par nom",
   "restoration": "Restauration",
   "shopping": "Shopping",
-  "tourism": "Tourisme"
+  "tourism": "Tourisme",
+  "favorites": "Favoris",
+  "food": "Restaurants",
+  "pay": "Payer",
+  "amount": "Montant"
 }

@@ -17,3 +17,20 @@ String formatPhoneNumber(String phoneNumber) {
     return '${match.group(1)} ${match.group(2)} ${match.group(3)} ${match.group(4)} ${match.group(5)}';
   });
 }
+
+String applyPhoneFormatting(String text) {
+  text = text.replaceAll(' ', '');
+
+  if (text.length > 9) {
+    text = text.substring(0, 9);
+  }
+
+  StringBuffer buffer = StringBuffer();
+  for (int i = 0; i < text.length; i++) {
+    if (i == 2 || i == 5 || i == 7) {
+      buffer.write(' ');
+    }
+    buffer.write(text[i]);
+  }
+  return buffer.toString();
+}

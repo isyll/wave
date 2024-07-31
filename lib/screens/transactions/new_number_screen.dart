@@ -41,7 +41,7 @@ class _NewNumberScreenState extends State<NewNumberScreen> {
 
   void _formatPhoneNumber() {
     String text = _phoneNumberController.text;
-    String formatted = _applyPhoneFormatting(text);
+    String formatted = applyPhoneFormatting(text);
 
     _phoneNumberController.removeListener(_formatPhoneNumber);
     _phoneNumberController.value = _phoneNumberController.value.copyWith(
@@ -50,23 +50,6 @@ class _NewNumberScreenState extends State<NewNumberScreen> {
     );
 
     _phoneNumberController.addListener(_formatPhoneNumber);
-  }
-
-  String _applyPhoneFormatting(String text) {
-    text = text.replaceAll(' ', '');
-
-    if (text.length > 9) {
-      text = text.substring(0, 9);
-    }
-
-    StringBuffer buffer = StringBuffer();
-    for (int i = 0; i < text.length; i++) {
-      if (i == 2 || i == 5 || i == 7) {
-        buffer.write(' ');
-      }
-      buffer.write(text[i]);
-    }
-    return buffer.toString();
   }
 
   @override

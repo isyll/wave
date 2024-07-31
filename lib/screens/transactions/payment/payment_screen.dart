@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:waveapp/screens/transactions/payment/payment_form_screen.dart';
+import 'package:waveapp/services/data_service.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -11,9 +13,94 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  List<Company> _companies = [];
+
+  Future<void> _fetchCompanies() async {
+    final data = await DataService.loadCompanies();
+    setState(() {
+      _companies = data;
+    });
+  }
+
+  List<Company> _filterCompanies(CompanyType type, {bool? favorite}) =>
+      favorite != null
+          ? _companies
+              .where((item) => item.type == type && item.isFavorite == favorite)
+              .toList()
+          : _companies.where((item) => item.type == type).toList();
+
+  List<Company> get _favorites =>
+      _companies.where((item) => item.isFavorite).toList();
+
+  Widget _categoryTitle(String title) => Padding(
+        padding: const EdgeInsets.only(top: 28, bottom: 5, left: 16, right: 16),
+        child: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+        ),
+      );
+
+  Widget _companyItem(Company company) => Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: company.bgColor,
+            ),
+            width: 50,
+            height: 50,
+            child: Image.asset(
+              company.imgAsset,
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Text(
+            company.name,
+            style: const TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.normal),
+          )
+        ],
+      );
+
+  dynamic _listItems(List<Company> items) => List.generate(
+      items.length,
+      (index) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          PaymentFormScreen(company: items[index])));
+                },
+                style: ButtonStyle(
+                    shape: const WidgetStatePropertyAll(LinearBorder()),
+                    overlayColor:
+                        WidgetStatePropertyAll(Colors.black.withOpacity(0.08))),
+                child: _companyItem(items[index])),
+          ));
+
+  @override
+  void initState() {
+    super.initState();
+    context.loaderOverlay.show();
+    _fetchCompanies().then((_) {
+      context.loaderOverlay.hide();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final favorites = _favorites;
+    final invoices = _filterCompanies(CompanyType.invoice, favorite: false);
+    final foods = _filterCompanies(CompanyType.food, favorite: false);
+    final shoppings = _filterCompanies(CompanyType.shopping, favorite: false);
+    final tourisms = _filterCompanies(CompanyType.tourism, favorite: false);
 
     return Scaffold(
         body: NestedScrollView(
@@ -100,14 +187,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   .toList(),
             ),
           ),
-          ...List.generate(
-              100,
-              (index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Item #$index',
-                    ),
-                  ))
+          _categoryTitle(l.favorites),
+          ..._listItems(favorites),
+          _categoryTitle(l.invoices),
+          ..._listItems(invoices),
+          _categoryTitle(l.food),
+          ..._listItems(foods),
+          _categoryTitle(l.shopping),
+          ..._listItems(shoppings),
+          _categoryTitle(l.tourism),
+          ..._listItems(tourisms)
         ],
       ),
     ));

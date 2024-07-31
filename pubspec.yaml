@@ -111,6 +111,25 @@ flutter:
     - assets/images/icons/payments/Shopping.png
     - assets/images/icons/payments/Tourism.png
 
+    - assets/images/logos/canalplus.png
+    - assets/images/logos/rapido.png
+    - assets/images/logos/seneau.png
+    - assets/images/logos/senelec.png
+    - assets/images/logos/woyofal.png
+
+    - assets/images/logos/aquatech.png
+    - assets/images/logos/baobabplus.png
+    - assets/images/logos/campusen.png
+    - assets/images/logos/tnt.png
+    - assets/images/logos/ucad.png
+
+    - assets/images/logos/la-plancha.png
+    - assets/images/logos/paris-dakar.png
+    - assets/images/logos/senegal-taste.png
+
+    - assets/images/logos/kaynoo.png
+    - assets/images/logos/decathlon.png
+
     - assets/images/country_flags/SN.png
     - assets/images/country_flags/ML.png
     - assets/images/country_flags/BF.png
