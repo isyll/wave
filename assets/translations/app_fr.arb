@@ -53,5 +53,8 @@
   "transaction_status_inprogress": "En cours",
   "full_name": "Nom complet",
   "select_your_country": "Sélectionner votre pays",
-  "search_by_name": "Rechercher par nom"
+  "search_by_name": "Rechercher par nom",
+  "restoration": "Restauration",
+  "shopping": "Shopping",
+  "tourism": "Tourisme"
 }

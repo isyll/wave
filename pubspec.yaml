@@ -106,6 +106,10 @@ flutter:
     - assets/images/wave-4x.jpg
     - assets/images/icons/contacts/avatar.png
     - assets/images/icons/transactions/person.png
+    - assets/images/icons/payments/Hamburger.png
+    - assets/images/icons/payments/Light.png
+    - assets/images/icons/payments/Shopping.png
+    - assets/images/icons/payments/Tourism.png
 
     - assets/images/country_flags/SN.png
     - assets/images/country_flags/ML.png

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -47,10 +48,75 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ),
       ],
-      body: ListView.builder(
-        itemBuilder: (context, index) => Text('Item #$index'),
-        itemCount: 100,
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Wrap(
+              spacing: 10,
+              children: [
+                _CategoryButtonData(
+                    title: l.invoices,
+                    icon: Image.asset(
+                      'assets/images/icons/payments/Light.png',
+                      width: 40,
+                    )),
+                _CategoryButtonData(
+                    title: l.restoration,
+                    icon: Image.asset(
+                      'assets/images/icons/payments/Hamburger.png',
+                      width: 40,
+                    )),
+                _CategoryButtonData(
+                    title: l.shopping,
+                    icon: Image.asset(
+                      'assets/images/icons/payments/Shopping.png',
+                      width: 40,
+                    )),
+                _CategoryButtonData(
+                    title: l.tourism,
+                    icon: Image.asset(
+                      'assets/images/icons/payments/Tourism.png',
+                      width: 40,
+                    ))
+              ]
+                  .map((data) => TextButton(
+                        onPressed: () {},
+                        style: const ButtonStyle(
+                            shape: WidgetStatePropertyAll(LinearBorder.none),
+                            padding: WidgetStatePropertyAll(EdgeInsets.zero)),
+                        child: Column(
+                          children: [
+                            data.icon,
+                            Text(data.title,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    letterSpacing: 0,
+                                    color: Colors.black))
+                          ],
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ),
+          ...List.generate(
+              100,
+              (index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Item #$index',
+                    ),
+                  ))
+        ],
       ),
     ));
   }
+}
+
+class _CategoryButtonData {
+  final String title;
+  final Widget icon;
+
+  const _CategoryButtonData({required this.title, required this.icon});
 }
