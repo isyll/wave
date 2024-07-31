@@ -65,21 +65,21 @@ flutter_launcher_icons:
   image_path: 'assets/icons/wave_launcher_icon.png'
   min_sdk_android: 21
 
-flutter_native_splash:
-  color: '#ffffff'
-  color_dark: '#ffffff'
-  image: 'assets/images/wave-4x.jpg'
-  image_dark: 'assets/images/wave-4x.jpg'
-  android_12:
+  flutter_native_splash:
     color: '#ffffff'
     color_dark: '#ffffff'
     image: 'assets/images/wave-4x.jpg'
     image_dark: 'assets/images/wave-4x.jpg'
+    android_12:
+      color: '#ffffff'
+      color_dark: '#ffffff'
+      image: 'assets/images/wave-4x.jpg'
+      image_dark: 'assets/images/wave-4x.jpg'
+      android: true
+      ios: true
     android: true
     ios: true
-  android: true
-  ios: true
-  web: false
+    web: false
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

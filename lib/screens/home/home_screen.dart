@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double get balance {
     final random = Random();
     const min = 500;
-    const max = 1000000;
+    const max = 100000;
     final randomNumber = min + random.nextInt(max - min + 1);
 
     return randomNumber.toDouble();

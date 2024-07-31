@@ -52,5 +52,6 @@
   "transaction_status_onhold": "En attente",
   "transaction_status_inprogress": "En cours",
   "full_name": "Nom complet",
-  "select_your_country": "Sélectionner votre pays"
+  "select_your_country": "Sélectionner votre pays",
+  "search_by_name": "Rechercher par nom"
 }

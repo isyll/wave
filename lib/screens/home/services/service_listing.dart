@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/transactions/choose_recipient_screen.dart';
+import 'package:waveapp/screens/transactions/payment/payment_screen.dart';
 
 class ServiceListing extends StatelessWidget {
   const ServiceListing({super.key});
@@ -32,7 +33,7 @@ class ServiceListing extends StatelessWidget {
                       child: Image.asset('assets/images/icons/home/User.png'))),
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.pushNamed(context, PaymentScreen.routeName);
                   },
                   text: l.payment,
                   child: Container(

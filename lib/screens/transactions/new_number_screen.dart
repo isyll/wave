@@ -19,7 +19,7 @@ class NewNumberScreen extends StatefulWidget {
 class _NewNumberScreenState extends State<NewNumberScreen> {
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  late CountryModel _selectedCountry;
+  CountryModel _selectedCountry = const CountryModel(name: '', code: '', indicator: '');
   bool _disabled = true;
 
   void _checkDisabled() {
