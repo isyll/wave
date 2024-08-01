@@ -61,5 +61,7 @@
   "food": "Restaurants",
   "pay": "Payer",
   "amount": "Montant",
-  "cancel": "Annuler"
+  "cancel": "Annuler",
+  "buy_credit": "Achat Crédit",
+  "buy_credit_for_new_number": "Acheter du crédit pour un nouveau numéro"
 }

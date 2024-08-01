@@ -85,20 +85,3 @@ class _TransactionItemState extends State<TransactionItem> {
         ));
   }
 }
-
-class _Text extends StatelessWidget {
-  final String text;
-  const _Text(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      softWrap: true,
-      style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-          fontWeight: FontWeight.bold,
-          fontSize: 20),
-    );
-  }
-}

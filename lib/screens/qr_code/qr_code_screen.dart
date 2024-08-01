@@ -23,7 +23,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   }
 
   Widget get _widget =>
-      showScanner ? ScanQrCode() : const DisplayQrCode();
+      showScanner ? const ScanQrCode() : const DisplayQrCode();
 
   Widget _textButton(String text, bool current) {
     return TextButton(
