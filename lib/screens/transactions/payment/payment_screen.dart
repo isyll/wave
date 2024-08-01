@@ -157,7 +157,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 style: const ButtonStyle(
                     padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                 padding: EdgeInsets.zero,
-                onPressed: () => setState(() => _selectedCategory = null),
+                onPressed: () => setState(() {
+                      _selectedCategory = null;
+                    }),
                 icon: const Icon(
                   Icons.close,
                   size: 20,
@@ -210,10 +212,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ? _categorySelected(_selectedCategory!)
                               : null)),
                   Visibility(
-                      visible: _selectedCategory != null,
+                      visible: _selectedCategory != null ||
+                          _controller.text.isNotEmpty,
                       child: TextButton(
-                        onPressed: () =>
-                            setState(() => _selectedCategory = null),
+                        onPressed: () => setState(() {
+                          _selectedCategory = null;
+                          _controller.value = TextEditingValue.empty;
+                        }),
                         child: Text(
                           l.cancel,
                           style: const TextStyle(
