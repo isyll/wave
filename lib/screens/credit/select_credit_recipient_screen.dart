@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:waveapp/models/contact_model.dart';
-import 'package:waveapp/screens/transactions/transfer/transfer_screen.dart';
-import 'package:waveapp/screens/transactions/transfer/transfer_screen_arguments.dart';
+import 'package:waveapp/screens/credit/credit_amount_form_screen.dart';
 import 'package:waveapp/utils/common.dart';
 
 class SelectCreditRecipientScreen extends StatefulWidget {
@@ -96,11 +95,9 @@ class _SelectCreditRecipientScreenState
                                   ? const EdgeInsets.only(bottom: 16)
                                   : EdgeInsets.zero)),
                       onPressed: () {
-                        Navigator.of(context).pushNamed(
-                            TransferScreen.routeName,
-                            arguments: TransferScreenArguments(
-                                name: contact.name,
-                                phoneNumber: contact.phoneNumber));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                CreditAmountFormScreen(contact: contact)));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,

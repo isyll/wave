@@ -19,31 +19,31 @@ class _PaymentFormScreenState extends State<PaymentFormScreen> {
   bool _disabled = true;
 
   void _checkDisabled() {
-    final phone = _controller.text.trim().replaceAll(' ', '');
+    final amount = int.parse(_controller.text.replaceAll(' ', ''));
 
     setState(() {
-      _disabled = phone.isEmpty || phone.length < 9;
+      _disabled = amount < 500;
     });
   }
 
-  void _formatNumber() {
+  void _formatAmount() {
     String text = _controller.text;
-    String formatted = applyPhoneFormatting(text);
+    String formatted = formatNumber(double.parse(text), replace: '.');
 
-    _controller.removeListener(_formatNumber);
+    _controller.removeListener(_formatAmount);
     _controller.value = _controller.value.copyWith(
       text: formatted,
       selection: TextSelection.collapsed(offset: formatted.length),
     );
 
-    _controller.addListener(_formatNumber);
+    _controller.addListener(_formatAmount);
   }
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(_checkDisabled);
-    _controller.addListener(_formatNumber);
+    _controller.addListener(_formatAmount);
   }
 
   @override
@@ -116,7 +116,7 @@ class _PaymentFormScreenState extends State<PaymentFormScreen> {
   @override
   void dispose() {
     _controller.removeListener(_checkDisabled);
-    _controller.removeListener(_formatNumber);
+    _controller.removeListener(_formatAmount);
     _controller.dispose();
     super.dispose();
   }
