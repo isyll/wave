@@ -25,6 +25,13 @@ class SettingsFooter extends StatelessWidget {
         SizedBox(
           height: 26,
           child: Text(
+            'Ibrahima Sylla <isyll711@gmail.com>',
+            style: textTheme,
+          ),
+        ),
+        SizedBox(
+          height: 26,
+          child: Text(
             'wave digital finance',
             style: textTheme,
           ),
