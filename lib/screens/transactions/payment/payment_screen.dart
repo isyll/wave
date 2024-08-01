@@ -14,6 +14,43 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   List<Company> _companies = [];
+  CompanyType? _selectedCategory;
+  String? searchText;
+  final _controller = TextEditingController();
+  List<_CategoryButtonData> get _categories {
+    final l = AppLocalizations.of(context)!;
+
+    return [
+      _CategoryButtonData(
+          title: l.invoices,
+          icon: Image.asset(
+            'assets/images/icons/payments/Light.png',
+            width: 40,
+          ),
+          type: CompanyType.invoice),
+      _CategoryButtonData(
+          title: l.restoration,
+          icon: Image.asset(
+            'assets/images/icons/payments/Hamburger.png',
+            width: 40,
+          ),
+          type: CompanyType.food),
+      _CategoryButtonData(
+          title: l.shopping,
+          icon: Image.asset(
+            'assets/images/icons/payments/Shopping.png',
+            width: 40,
+          ),
+          type: CompanyType.shopping),
+      _CategoryButtonData(
+          title: l.tourism,
+          icon: Image.asset(
+            'assets/images/icons/payments/Tourism.png',
+            width: 40,
+          ),
+          type: CompanyType.tourism)
+    ];
+  }
 
   Future<void> _fetchCompanies() async {
     final data = await DataService.loadCompanies();
@@ -84,10 +121,62 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: _companyItem(items[index])),
           ));
 
+  String _category2String(CompanyType category) {
+    final l = AppLocalizations.of(context)!;
+
+    switch (category) {
+      case CompanyType.invoice:
+        return l.invoices;
+      case CompanyType.food:
+        return l.restoration;
+      case CompanyType.shopping:
+        return l.shopping;
+      case CompanyType.tourism:
+        return l.tourism;
+    }
+  }
+
+  Widget _categorySelected(CompanyType category) {
+    String name = _category2String(category);
+
+    return Container(
+      padding: const EdgeInsets.all(3),
+      height: 28,
+      decoration: BoxDecoration(
+          border: Border.all(), borderRadius: BorderRadius.circular(12)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            name,
+            style: const TextStyle(fontSize: 16, color: Colors.black),
+          ),
+          SizedBox(
+            width: 32,
+            child: IconButton(
+                style: const ButtonStyle(
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero)),
+                padding: EdgeInsets.zero,
+                onPressed: () => setState(() => _selectedCategory = null),
+                icon: const Icon(
+                  Icons.close,
+                  size: 20,
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _filterCompaniesByTextSearch() {
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
     context.loaderOverlay.show();
+    _controller.addListener(_filterCompaniesByTextSearch);
     _fetchCompanies().then((_) {
       context.loaderOverlay.hide();
     });
@@ -96,11 +185,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final favorites = _favorites;
-    final invoices = _filterCompanies(CompanyType.invoice, favorite: false);
-    final foods = _filterCompanies(CompanyType.food, favorite: false);
-    final shoppings = _filterCompanies(CompanyType.shopping, favorite: false);
-    final tourisms = _filterCompanies(CompanyType.tourism, favorite: false);
 
     return Scaffold(
         body: NestedScrollView(
@@ -112,25 +196,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
           snap: true,
           floating: true,
           title: Text(l.payment),
-          bottom: AppBar(
-            surfaceTintColor: Theme.of(context).colorScheme.surface,
-            automaticallyImplyLeading: false,
-            title: TextField(
-              decoration: InputDecoration(
-                  hintText: l.search_by_name,
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    size: 32,
-                  ),
-                  hintStyle: TextStyle(color: Colors.black.withOpacity(0.25)),
-                  isDense: true,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black26)),
-                  enabledBorder: const OutlineInputBorder(
-                      gapPadding: 0,
-                      borderSide: BorderSide(width: 1, color: Colors.black26))),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Flexible(
+                      child: _PrefixSearchField(
+                          controller: _controller,
+                          hintText: l.search_by_name,
+                          prefix: _selectedCategory != null
+                              ? _categorySelected(_selectedCategory!)
+                              : null)),
+                  Visibility(
+                      visible: _selectedCategory != null,
+                      child: TextButton(
+                        onPressed: () =>
+                            setState(() => _selectedCategory = null),
+                        child: Text(
+                          l.cancel,
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                      ))
+                ],
+              ),
             ),
           ),
         ),
@@ -141,34 +232,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Wrap(
               spacing: 10,
-              children: [
-                _CategoryButtonData(
-                    title: l.invoices,
-                    icon: Image.asset(
-                      'assets/images/icons/payments/Light.png',
-                      width: 40,
-                    )),
-                _CategoryButtonData(
-                    title: l.restoration,
-                    icon: Image.asset(
-                      'assets/images/icons/payments/Hamburger.png',
-                      width: 40,
-                    )),
-                _CategoryButtonData(
-                    title: l.shopping,
-                    icon: Image.asset(
-                      'assets/images/icons/payments/Shopping.png',
-                      width: 40,
-                    )),
-                _CategoryButtonData(
-                    title: l.tourism,
-                    icon: Image.asset(
-                      'assets/images/icons/payments/Tourism.png',
-                      width: 40,
-                    ))
-              ]
+              children: _categories
                   .map((data) => TextButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            setState(() => _selectedCategory = data.type),
                         style: const ButtonStyle(
                             shape: WidgetStatePropertyAll(LinearBorder.none),
                             padding: WidgetStatePropertyAll(EdgeInsets.zero)),
@@ -187,25 +254,112 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   .toList(),
             ),
           ),
-          _categoryTitle(l.favorites),
-          ..._listItems(favorites),
-          _categoryTitle(l.invoices),
-          ..._listItems(invoices),
-          _categoryTitle(l.food),
-          ..._listItems(foods),
-          _categoryTitle(l.shopping),
-          ..._listItems(shoppings),
-          _categoryTitle(l.tourism),
-          ..._listItems(tourisms)
+          if (_controller.text.isNotEmpty)
+            ..._listItems(_companies
+                .where((item) =>
+                    item.name
+                        .toLowerCase()
+                        .contains(_controller.text.trim().toLowerCase()) &&
+                    (_selectedCategory == null ||
+                        _selectedCategory == item.type))
+                .toList()),
+          if (_controller.text.isEmpty) ...[
+            if (_selectedCategory == null) ...[
+              _categoryTitle(l.favorites),
+              ..._listItems(_favorites)
+            ],
+            if (_selectedCategory == null ||
+                _selectedCategory == CompanyType.invoice) ...[
+              _categoryTitle(l.invoices),
+              ..._listItems(
+                  _filterCompanies(CompanyType.invoice, favorite: false))
+            ],
+            if (_selectedCategory == null ||
+                _selectedCategory == CompanyType.food) ...[
+              _categoryTitle(l.food),
+              ..._listItems(_filterCompanies(CompanyType.food, favorite: false))
+            ],
+            if (_selectedCategory == null ||
+                _selectedCategory == CompanyType.shopping) ...[
+              _categoryTitle(l.shopping),
+              ..._listItems(
+                  _filterCompanies(CompanyType.shopping, favorite: false))
+            ],
+            if (_selectedCategory == null ||
+                _selectedCategory == CompanyType.tourism) ...[
+              _categoryTitle(l.tourism),
+              ..._listItems(
+                  _filterCompanies(CompanyType.tourism, favorite: false))
+            ]
+          ]
         ],
       ),
     ));
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_filterCompaniesByTextSearch);
+    _controller.dispose();
+    super.dispose();
   }
 }
 
 class _CategoryButtonData {
   final String title;
   final Widget icon;
+  final CompanyType type;
 
-  const _CategoryButtonData({required this.title, required this.icon});
+  const _CategoryButtonData(
+      {required this.title, required this.icon, required this.type});
+}
+
+class _PrefixSearchField extends StatefulWidget {
+  final Widget? prefix;
+  final String? hintText;
+  final TextEditingController? controller;
+
+  const _PrefixSearchField(
+      {required this.prefix, this.hintText, this.controller});
+
+  @override
+  State<_PrefixSearchField> createState() => _PrefixSearchFieldState();
+}
+
+class _PrefixSearchFieldState extends State<_PrefixSearchField> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: Colors.black.withOpacity(0.25)),
+          borderRadius: BorderRadius.circular(8)),
+      child: Row(
+        children: [
+          const Icon(Icons.search, size: 32),
+          if (widget.prefix != null) widget.prefix!,
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: TextField(
+              controller: widget.controller,
+              decoration: InputDecoration(
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                  border: InputBorder.none,
+                  isDense: true,
+                  hintText: widget.hintText,
+                  hintStyle: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black.withOpacity(0.4))),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

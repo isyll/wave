@@ -60,5 +60,6 @@
   "favorites": "Favoris",
   "food": "Restaurants",
   "pay": "Payer",
-  "amount": "Montant"
+  "amount": "Montant",
+  "cancel": "Annuler"
 }
