@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:waveapp/models/contact_model.dart';
+import 'package:waveapp/providers/transactions_provider.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/services/transactions/transaction_type.dart';
 import 'package:waveapp/utils/format.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:waveapp/utils/generate.dart';
 import 'package:waveapp/widgets/button.dart';
 
 class CreditAmountFormScreen extends StatefulWidget {
@@ -19,7 +23,7 @@ class _CreditAmountFormScreenState extends State<CreditAmountFormScreen> {
   bool _disabled = true;
 
   void _formatAmount() {
-    String text = _controller.text.replaceAll(' ', '');
+    String text = _controller.text.replaceAll('.', '');
     String formatted =
         text.isNotEmpty ? formatNumber(double.parse(text), replace: '.') : '';
 
@@ -33,7 +37,7 @@ class _CreditAmountFormScreenState extends State<CreditAmountFormScreen> {
   }
 
   void _checkDisabled() {
-    final text = _controller.text.replaceAll(' ', '');
+    final text = _controller.text.replaceAll('.', '');
     final amount = text.isNotEmpty ? int.parse(text) : 0;
 
     setState(() {
@@ -123,6 +127,16 @@ class _CreditAmountFormScreenState extends State<CreditAmountFormScreen> {
                 onPressed: _disabled
                     ? null
                     : () {
+                        final phone =
+                            widget.contact.phoneNumber.replaceAll(' ', '');
+
+                        Provider.of<TransactionsProvider>(context,
+                                listen: false)
+                            .add(generateTransaction(
+                                title: 'Crédit ($phone)',
+                                amount: double.parse(
+                                    _controller.text.replaceAll('.', '')),
+                                type: Transactiontype.payment));
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             HomeScreen.routeName, (route) => false);
                       })

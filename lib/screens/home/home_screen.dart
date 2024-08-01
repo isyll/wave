@@ -99,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
 
     final transactionsWatcher = context.watch<TransactionsProvider>();
     final storedTransactions = transactionsWatcher.transactions;
+    storedTransactions.sort((a, b) => b.date.compareTo(a.date));
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,

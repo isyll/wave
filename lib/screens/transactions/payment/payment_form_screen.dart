@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:waveapp/providers/transactions_provider.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/services/data_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:waveapp/services/transactions/transaction_type.dart';
 import 'package:waveapp/utils/format.dart';
+import 'package:waveapp/utils/generate.dart';
 import 'package:waveapp/widgets/button.dart';
 
 class PaymentFormScreen extends StatefulWidget {
@@ -19,7 +23,8 @@ class _PaymentFormScreenState extends State<PaymentFormScreen> {
   bool _disabled = true;
 
   void _checkDisabled() {
-    final amount = int.parse(_controller.text.replaceAll(' ', ''));
+    final value = _controller.text.replaceAll('.', '');
+    final amount = value.isNotEmpty ? int.parse(value) : 0;
 
     setState(() {
       _disabled = amount < 500;
@@ -27,8 +32,9 @@ class _PaymentFormScreenState extends State<PaymentFormScreen> {
   }
 
   void _formatAmount() {
-    String text = _controller.text;
-    String formatted = formatNumber(double.parse(text), replace: '.');
+    String text = _controller.text.replaceAll('.', '');
+    String formatted =
+        text.isNotEmpty ? formatNumber(double.parse(text), replace: '.') : '';
 
     _controller.removeListener(_formatAmount);
     _controller.value = _controller.value.copyWith(
@@ -105,6 +111,14 @@ class _PaymentFormScreenState extends State<PaymentFormScreen> {
                 onPressed: _disabled
                     ? null
                     : () {
+                        final amount =
+                            double.parse(_controller.text.replaceAll('.', ''));
+                        Provider.of<TransactionsProvider>(context,
+                                listen: false)
+                            .add(generateTransaction(
+                                title: widget.company.name,
+                                amount: amount,
+                                type: Transactiontype.payment));
                         Navigator.of(context).pushNamed(HomeScreen.routeName);
                       })
           ],

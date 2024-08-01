@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:waveapp/providers/transactions_provider.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/transactions/transfer/transfer_screen_arguments.dart';
+import 'package:waveapp/services/transactions/transaction_type.dart';
 import 'package:waveapp/utils/generate.dart';
 import 'package:waveapp/utils/number.dart';
 import 'package:waveapp/widgets/button.dart';
@@ -136,9 +137,11 @@ class _TransferScreenState extends State<TransferScreen> {
               onPressed: disabled
                   ? null
                   : () {
-                      final amount = amountSent!.toDouble();
+                      final amount = double.parse(amountSentController.text);
                       final transaction = generateTransaction(
-                          title: 'Transfert', amount: amount);
+                          title: 'Transfert',
+                          amount: amount,
+                          type: Transactiontype.transfer);
                       Provider.of<TransactionsProvider>(context, listen: false)
                           .add(transaction);
                       Navigator.of(context)
@@ -151,9 +154,12 @@ class _TransferScreenState extends State<TransferScreen> {
 
   @override
   void dispose() {
-    super.dispose();
+    amountSentController.removeListener(caclculateAmountReceived);
+    amountReceivedController.removeListener(caclculateAmountSent);
 
     amountSentController.dispose();
     amountReceivedController.dispose();
+
+    super.dispose();
   }
 }
