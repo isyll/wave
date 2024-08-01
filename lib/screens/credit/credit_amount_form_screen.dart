@@ -123,7 +123,8 @@ class _CreditAmountFormScreenState extends State<CreditAmountFormScreen> {
                 onPressed: _disabled
                     ? null
                     : () {
-                        Navigator.of(context).pushNamed(HomeScreen.routeName);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            HomeScreen.routeName, (route) => false);
                       })
           ],
         ),
