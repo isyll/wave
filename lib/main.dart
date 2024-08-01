@@ -24,6 +24,7 @@ import 'package:waveapp/screens/transactions/transfer/transfer_screen.dart';
 import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:waveapp/utils/globals.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +43,6 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final navigatorKey = GlobalKey<NavigatorState>();
-  final routeObserver = RouteObserver<PageRoute>();
   final sessionConfig = SessionConfig(
       invalidateSessionForAppLostFocus:
           const Duration(seconds: AppConfig.appLostFocusTimeout),

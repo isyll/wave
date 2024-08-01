@@ -1,6 +1,9 @@
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/home/history/transaction_search.dart';
 import 'package:waveapp/screens/home/services/service_listing.dart';
@@ -9,6 +12,7 @@ import 'package:waveapp/screens/transactions/details/transaction_details_argumen
 import 'package:waveapp/screens/transactions/details/transaction_details_screen.dart';
 import 'package:waveapp/services/data_service.dart';
 import 'package:waveapp/services/transactions/transaction.dart';
+import 'package:waveapp/utils/globals.dart';
 import 'package:waveapp/widgets/balance_display_widget.dart';
 import 'package:waveapp/screens/home/home_qr_code.dart';
 
@@ -20,8 +24,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with RouteAware {
   late List<Transaction> transactions = [];
+  bool _isLoading = false;
 
   void loadTransactions() {
     Future.delayed(const Duration(milliseconds: 350), () {
@@ -47,6 +52,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
+  void didPush() {
+    _isLoading = true;
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
+  @override
   void initState() {
     super.initState();
     loadTransactions();
@@ -54,6 +75,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    bool fromAuthScreen = false;
+
+    if (args != null &&
+        (args as HomeScreenArguments).previousRoute == AuthScreen.routeName) {
+      fromAuthScreen = true;
+    }
+
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
@@ -121,6 +150,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 0, vertical: 6.0),
                         ),
+                        if (!fromAuthScreen)
+                          AnimatedContainer(
+                              height: _isLoading ? 50 : 0,
+                              duration: const Duration(milliseconds: 250),
+                              child: AnimatedOpacity(
+                                opacity: _isLoading ? 1 : 0,
+                                duration: const Duration(milliseconds: 150),
+                                child: SpinKitRing(
+                                    lineWidth: 4,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                              )),
                         for (int i = 0; i < transactions.length; i++)
                           InkWell(
                               onTap: () {
@@ -140,4 +181,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         )));
   }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+}
+
+class HomeScreenArguments {
+  final String previousRoute;
+
+  const HomeScreenArguments({required this.previousRoute});
 }

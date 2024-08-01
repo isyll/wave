@@ -20,7 +20,9 @@ class _AuthScreenState extends State<AuthScreen> {
     context.loaderOverlay.show();
     Future.delayed(const Duration(milliseconds: 1000), () {
       context.loaderOverlay.hide();
-      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+          arguments:
+              const HomeScreenArguments(previousRoute: AuthScreen.routeName));
     });
   }
 
