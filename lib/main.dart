@@ -9,6 +9,9 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:waveapp/config/app.dart';
 import 'package:waveapp/config/constants.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
+import 'package:waveapp/screens/banking/bank_list_screen.dart';
+import 'package:waveapp/screens/credit/select_credit_recipient_screen.dart';
+import 'package:waveapp/screens/gitfts/gifts_dashboard.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
@@ -103,7 +106,10 @@ class _AppState extends State<App> {
             NewNumberScreen.routeName: (context) => const NewNumberScreen(),
             HistoryScreen.routeName: (context) => const HistoryScreen(),
             TransactionDetailsScreen.routeName: (context) => const TransactionDetailsScreen(),
-            PaymentScreen.routeName: (context) => const PaymentScreen()
+            PaymentScreen.routeName: (context) => const PaymentScreen(),
+            BankListScreen.routeName: (context) => const BankListScreen(),
+            SelectCreditRecipientScreen.routeName: (context) => const SelectCreditRecipientScreen(),
+            GiftsDashboard.routeName: (context) => const GiftsDashboard()
           },
         ),
       ),

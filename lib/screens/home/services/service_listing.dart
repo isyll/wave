@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/screens/banking/bank_list_screen.dart';
+import 'package:waveapp/screens/credit/select_credit_recipient_screen.dart';
+import 'package:waveapp/screens/gitfts/gifts_dashboard.dart';
 import 'package:waveapp/screens/transactions/choose_recipient_screen.dart';
 import 'package:waveapp/screens/transactions/payment/payment_screen.dart';
 
@@ -22,7 +24,8 @@ class ServiceListing extends StatelessWidget {
             children: [
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, ChooseRecipientScreen.routeName);
+                    Navigator.pushNamed(
+                        context, ChooseRecipientScreen.routeName);
                   },
                   text: l.transfer,
                   child: Container(
@@ -44,7 +47,8 @@ class ServiceListing extends StatelessWidget {
                       child: Image.asset('assets/images/icons/home/Cart.png'))),
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.pushNamed(
+                        context, SelectCreditRecipientScreen.routeName);
                   },
                   text: l.credit,
                   child: Container(
@@ -56,7 +60,7 @@ class ServiceListing extends StatelessWidget {
                           Image.asset('assets/images/icons/home/Phone.png'))),
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.pushNamed(context, BankListScreen.routeName);
                   },
                   text: l.bank,
                   child: Container(
@@ -68,7 +72,7 @@ class ServiceListing extends StatelessWidget {
                           'assets/images/icons/home/Building.png'))),
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.pushNamed(context, GiftsDashboard.routeName);
                   },
                   text: l.gifts,
                   child: Container(
