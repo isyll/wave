@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:waveapp/providers/transactions_provider.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
 import 'package:waveapp/screens/transactions/transfer/transfer_screen_arguments.dart';
+import 'package:waveapp/utils/generate.dart';
 import 'package:waveapp/utils/number.dart';
 import 'package:waveapp/widgets/button.dart';
 
@@ -133,6 +136,11 @@ class _TransferScreenState extends State<TransferScreen> {
               onPressed: disabled
                   ? null
                   : () {
+                      final amount = amountSent!.toDouble();
+                      final transaction = generateTransaction(
+                          title: 'Transfert', amount: amount);
+                      Provider.of<TransactionsProvider>(context, listen: false)
+                          .add(transaction);
                       Navigator.of(context)
                           .pushReplacementNamed(HomeScreen.routeName);
                     })

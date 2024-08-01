@@ -6,8 +6,11 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
+import 'package:provider/provider.dart';
 import 'package:waveapp/config/app.dart';
 import 'package:waveapp/config/constants.dart';
+import 'package:waveapp/config/init.dart';
+import 'package:waveapp/providers/transactions_provider.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/banking/bank_list_screen.dart';
 import 'package:waveapp/screens/credit/select_credit_recipient_screen.dart';
@@ -25,12 +28,15 @@ import 'package:waveapp/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/utils/globals.dart';
+import 'package:waveapp/utils/preference_utils.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await PreferenceUtils.init();
+  AppInit.init();
   runApp(const App());
 }
 
@@ -69,48 +75,56 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
 
-    return SessionTimeoutManager(
-      sessionConfig: sessionConfig,
-      child: GlobalLoaderOverlay(
-      useDefaultLoading: false,
-      overlayColor: Colors.black.withOpacity(0.25),
-      overlayWidgetBuilder: (_) => Center(
-        child: SpinKitRing(
-          lineWidth: 4,
-          color: Colors.black.withOpacity(0.5),
-          size: 50.0,
-        ),
-      ),
-        child: MaterialApp(
-          navigatorObservers: [routeObserver],
-          navigatorKey: navigatorKey,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          theme: AppTheme.light,
-          debugShowCheckedModeBanner: false,
-          title: 'Wave by Isyll',
-          initialRoute: AuthScreen.routeName,
-          locale: Constants.locale,
-          supportedLocales: Constants.supportedLocales,
-          routes: {
-            AuthScreen.routeName: (context) => const AuthScreen(),
-            HomeScreen.routeName: (context) => const HomeScreen(),
-            SettingsScreen.routeName: (context) => const SettingsScreen(),
-            QrCodeScreen.routeName: (context) => const QrCodeScreen(),
-            TransferScreen.routeName: (context) => const TransferScreen(),
-            ChooseRecipientScreen.routeName: (context) => const ChooseRecipientScreen(),
-            NewNumberScreen.routeName: (context) => const NewNumberScreen(),
-            HistoryScreen.routeName: (context) => const HistoryScreen(),
-            TransactionDetailsScreen.routeName: (context) => const TransactionDetailsScreen(),
-            PaymentScreen.routeName: (context) => const PaymentScreen(),
-            BankListScreen.routeName: (context) => const BankListScreen(),
-            SelectCreditRecipientScreen.routeName: (context) => const SelectCreditRecipientScreen(),
-            GiftsDashboard.routeName: (context) => const GiftsDashboard()
-          },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TransactionsProvider())
+      ],
+      child: SessionTimeoutManager(
+        sessionConfig: sessionConfig,
+        child: GlobalLoaderOverlay(
+          useDefaultLoading: false,
+          overlayColor: Colors.black.withOpacity(0.25),
+          overlayWidgetBuilder: (_) => Center(
+            child: SpinKitRing(
+              lineWidth: 4,
+              color: Colors.black.withOpacity(0.5),
+              size: 50.0,
+            ),
+          ),
+          child: MaterialApp(
+            navigatorObservers: [routeObserver],
+            navigatorKey: navigatorKey,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            theme: AppTheme.light,
+            debugShowCheckedModeBanner: false,
+            title: 'Wave by Isyll',
+            initialRoute: AuthScreen.routeName,
+            locale: Constants.locale,
+            supportedLocales: Constants.supportedLocales,
+            routes: {
+              AuthScreen.routeName: (context) => const AuthScreen(),
+              HomeScreen.routeName: (context) => const HomeScreen(),
+              SettingsScreen.routeName: (context) => const SettingsScreen(),
+              QrCodeScreen.routeName: (context) => const QrCodeScreen(),
+              TransferScreen.routeName: (context) => const TransferScreen(),
+              ChooseRecipientScreen.routeName: (context) =>
+                  const ChooseRecipientScreen(),
+              NewNumberScreen.routeName: (context) => const NewNumberScreen(),
+              HistoryScreen.routeName: (context) => const HistoryScreen(),
+              TransactionDetailsScreen.routeName: (context) =>
+                  const TransactionDetailsScreen(),
+              PaymentScreen.routeName: (context) => const PaymentScreen(),
+              BankListScreen.routeName: (context) => const BankListScreen(),
+              SelectCreditRecipientScreen.routeName: (context) =>
+                  const SelectCreditRecipientScreen(),
+              GiftsDashboard.routeName: (context) => const GiftsDashboard()
+            },
+          ),
         ),
       ),
     );

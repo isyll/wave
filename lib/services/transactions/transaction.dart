@@ -44,6 +44,18 @@ class Transaction {
         extra: json['extra']);
   }
 
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'amount': amount,
+        'date': date.toIso8601String(),
+        'newBalance': newBalance,
+        'type': type.name,
+        'status': status.name,
+        'fees': fees,
+        'extra': extra
+      };
+
   dynamic getExtra(String key) {
     if (extra != null) {
       return extra[key];
@@ -80,7 +92,7 @@ class Transaction {
   String get formattedNewBalance =>
       '${formatNumber(newBalance, replace: '.')}F';
   String get formattedFees =>
-      '${fees == 0.0 ? 0 :formatNumber(fees, replace: '.')}F';
+      '${fees == 0.0 ? 0 : formatNumber(fees, replace: '.')}F';
 
   String statusToString(BuildContext context) {
     final l = AppLocalizations.of(context)!;

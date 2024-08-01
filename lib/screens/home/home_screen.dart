@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import 'package:waveapp/providers/transactions_provider.dart';
 import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/home/history/transaction_search.dart';
@@ -46,6 +48,17 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     return randomNumber.toDouble();
   }
 
+  void _reloadTransactions() {
+    setState(() {
+      _isLoading = true;
+    });
+    Future.delayed(const Duration(milliseconds: 1600), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   Future<void> refresh() async {
     loadTransactions();
   }
@@ -57,13 +70,15 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   }
 
   @override
+  void didPopNext() {
+    super.didPopNext();
+    _reloadTransactions();
+  }
+
+  @override
   void didPush() {
-    _isLoading = true;
-    Future.delayed(const Duration(seconds: 5), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    super.didPush();
+    _reloadTransactions();
   }
 
   @override
@@ -81,6 +96,9 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
         (args as HomeScreenArguments).previousRoute == AuthScreen.routeName) {
       fromAuthScreen = true;
     }
+
+    final transactionsWatcher = context.watch<TransactionsProvider>();
+    final storedTransactions = transactionsWatcher.transactions;
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -161,6 +179,16 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                                     color:
                                         Theme.of(context).colorScheme.primary),
                               )),
+                        for (int i = 0; i < storedTransactions.length; i++)
+                          InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    TransactionDetailsScreen.routeName,
+                                    arguments: TransactionDetailsArguments(
+                                        transaction: storedTransactions[i]));
+                              },
+                              child: TransactionItem(
+                                  transaction: storedTransactions[i])),
                         for (int i = 0; i < transactions.length; i++)
                           InkWell(
                               onTap: () {
