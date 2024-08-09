@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class GiftsDashboard extends StatefulWidget {
+class GiftsDashboardScreen extends StatefulWidget {
   static String routeName = '/gifts';
 
-  const GiftsDashboard({super.key});
+  const GiftsDashboardScreen({super.key});
 
   @override
-  State<GiftsDashboard> createState() => _GiftsDashboardState();
+  State<GiftsDashboardScreen> createState() => _GiftsDashboardScreenState();
 }
 
-class _GiftsDashboardState extends State<GiftsDashboard> {
+class _GiftsDashboardScreenState extends State<GiftsDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

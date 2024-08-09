@@ -164,9 +164,12 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                         ),
                         const ServiceListing(),
                         Container(
+                          height: 12,
                           color: const Color(0xfff0f0f0),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 6.0),
+                            horizontal: 0,
+                            vertical: 6.0,
+                          ),
                         ),
                         if (!fromAuthScreen)
                           AnimatedContainer(

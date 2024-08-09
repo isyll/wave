@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:waveapp/screens/transactions/payment/payment_form_screen.dart';
 import 'package:waveapp/services/data_service.dart';
+import 'package:waveapp/widgets/prefix_search_widget.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -205,7 +206,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               child: Row(
                 children: [
                   Flexible(
-                      child: _PrefixSearchField(
+                      child: PrefixSearchField(
                           controller: _controller,
                           hintText: l.search_by_name,
                           prefix: _selectedCategory != null
@@ -317,54 +318,4 @@ class _CategoryButtonData {
 
   const _CategoryButtonData(
       {required this.title, required this.icon, required this.type});
-}
-
-class _PrefixSearchField extends StatefulWidget {
-  final Widget? prefix;
-  final String? hintText;
-  final TextEditingController? controller;
-
-  const _PrefixSearchField(
-      {required this.prefix, this.hintText, this.controller});
-
-  @override
-  State<_PrefixSearchField> createState() => _PrefixSearchFieldState();
-}
-
-class _PrefixSearchFieldState extends State<_PrefixSearchField> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.black.withOpacity(0.25)),
-          borderRadius: BorderRadius.circular(8)),
-      child: Row(
-        children: [
-          const Icon(Icons.search, size: 32),
-          if (widget.prefix != null) widget.prefix!,
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: TextField(
-              controller: widget.controller,
-              decoration: InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  focusedErrorBorder: InputBorder.none,
-                  border: InputBorder.none,
-                  isDense: true,
-                  hintText: widget.hintText,
-                  hintStyle: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black.withOpacity(0.4))),
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }

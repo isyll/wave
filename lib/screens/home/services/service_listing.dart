@@ -72,7 +72,8 @@ class ServiceListing extends StatelessWidget {
                           'assets/images/icons/home/Building.png'))),
               _ServiceButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, GiftsDashboard.routeName);
+                    Navigator.pushNamed(
+                        context, GiftsDashboardScreen.routeName);
                   },
                   text: l.gifts,
                   child: Container(

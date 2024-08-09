@@ -49,6 +49,7 @@ dependencies:
   flutter_contacts: ^1.1.8
   shared_preferences: ^2.3.1
   provider: ^6.1.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -118,6 +119,14 @@ flutter:
     - assets/images/logos/seneau.png
     - assets/images/logos/senelec.png
     - assets/images/logos/woyofal.png
+    - assets/images/logos/banque-atlantique.png
+    - assets/images/logos/bhs.png
+    - assets/images/logos/bis.png
+    - assets/images/logos/boa.png
+    - assets/images/logos/cbao.png
+    - assets/images/logos/ecobank.png
+    - assets/images/logos/orabank.png
+    - assets/images/logos/uba.png
 
     - assets/images/logos/aquatech.png
     - assets/images/logos/baobabplus.png

@@ -16,6 +16,7 @@ import 'package:waveapp/screens/banking/bank_list_screen.dart';
 import 'package:waveapp/screens/credit/select_credit_recipient_screen.dart';
 import 'package:waveapp/screens/gitfts/gifts_dashboard.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/screens/identity_check/identity_check_screen.dart';
 import 'package:waveapp/screens/qr_code/qr_code_screen.dart';
 import 'package:waveapp/screens/settings/settings_screen.dart';
 import 'package:waveapp/screens/transactions/choose_recipient_screen.dart';
@@ -122,7 +123,10 @@ class _AppState extends State<App> {
               BankListScreen.routeName: (context) => const BankListScreen(),
               SelectCreditRecipientScreen.routeName: (context) =>
                   const SelectCreditRecipientScreen(),
-              GiftsDashboard.routeName: (context) => const GiftsDashboard()
+              GiftsDashboardScreen.routeName: (context) =>
+                  const GiftsDashboardScreen(),
+              IdentityCheckScreen.routeName: (context) =>
+                  const IdentityCheckScreen()
             },
           ),
         ),
