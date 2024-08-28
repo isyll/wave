@@ -54,8 +54,10 @@ class _SelectCreditRecipientScreenState
     _controller.addListener(_filterContacts);
     context.loaderOverlay.show();
     _fetchContacts().then((_) {
-      context.loaderOverlay.hide();
-      _focusNode.requestFocus();
+      if (mounted) {
+        context.loaderOverlay.hide();
+        _focusNode.requestFocus();
+      }
     });
   }
 

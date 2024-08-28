@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:waveapp/screens/banking/types/bank_item.dart';
 import 'package:waveapp/screens/identity_check/identity_check_screen.dart';
+import 'package:waveapp/utils/misc.dart';
 
 class BankItemWidget extends StatelessWidget {
   final BankItem bankItem;
@@ -11,8 +12,9 @@ class BankItemWidget extends StatelessWidget {
   void _showDialog(BuildContext context) {
     context.loaderOverlay.show();
 
-    Future.delayed(const Duration(milliseconds: 800)).then((_) {
-      context.loaderOverlay.hide();
+    tick(800).then((_) {
+      if (context.mounted) {
+        context.loaderOverlay.hide();
 
       showDialog(
           context: context,
@@ -53,6 +55,7 @@ class BankItemWidget extends StatelessWidget {
                   ],
                 );
               }));
+      }
     });
   }
 

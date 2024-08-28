@@ -57,57 +57,55 @@ class _CountrySelectorState extends State<CountrySelector> {
                         .copyWith(fontWeight: FontWeight.bold, fontSize: 20),
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero),
-                    content: Container(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: countries
-                            .map((country) => ListTile(
-                                leading: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    countryFlag(country.code),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      country.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(fontSize: 18),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      country.indicator,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              fontSize: 12,
-                                              color: Colors.black45),
-                                    )
-                                  ],
-                                ),
-                                trailing: Radio<String>(
-                                  value: country.code,
-                                  groupValue: selectedOption,
-                                  onChanged: (countryCode) {
-                                    setAlertState(() {
-                                      selectedOption = countryCode!;
-                                    });
-                                    setState(() {
-                                      _selectedCountry = countries
-                                          .where((item) =>
-                                              item.code == countryCode)
-                                          .first;
-                                    });
-                                    widget.onChange(countryCode!);
-                                  },
-                                )))
-                            .toList(),
-                      ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: countries
+                          .map((country) => ListTile(
+                              leading: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  countryFlag(country.code),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    country.name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(fontSize: 18),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    country.indicator,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            fontSize: 12,
+                                            color: Colors.black45),
+                                  )
+                                ],
+                              ),
+                              trailing: Radio<String>(
+                                value: country.code,
+                                groupValue: selectedOption,
+                                onChanged: (countryCode) {
+                                  setAlertState(() {
+                                    selectedOption = countryCode!;
+                                  });
+                                  setState(() {
+                                    _selectedCountry = countries
+                                        .where(
+                                            (item) => item.code == countryCode)
+                                        .first;
+                                  });
+                                  widget.onChange(countryCode!);
+                                },
+                              )))
+                          .toList(),
                     ),
                   );
                 }));

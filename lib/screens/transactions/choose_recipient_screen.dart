@@ -58,8 +58,10 @@ class _ChooseRecipientScreenState extends State<ChooseRecipientScreen> {
     focusNode = FocusNode();
     context.loaderOverlay.show();
     fetchContacts().then((_) {
-      context.loaderOverlay.hide();
-      focusNode.requestFocus();
+      if (mounted) {
+        context.loaderOverlay.hide();
+        focusNode.requestFocus();
+      }
     });
     searchController.addListener(filterContacts);
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:waveapp/screens/home/home_screen.dart';
+import 'package:waveapp/utils/misc.dart';
 import 'package:waveapp/widgets/pin_code.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -14,15 +15,18 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   String pinCode = '';
-  int pinLength = 4;
+  final pinLength = 4;
+  final routeArgs =
+      const HomeScreenArguments(previousRoute: AuthScreen.routeName);
 
   void onCompleted(int code) {
     context.loaderOverlay.show();
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      context.loaderOverlay.hide();
-      Navigator.pushReplacementNamed(context, HomeScreen.routeName,
-          arguments:
-              const HomeScreenArguments(previousRoute: AuthScreen.routeName));
+    tick(1000).then((_) {
+      if (mounted) {
+        context.loaderOverlay.hide();
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+            arguments: routeArgs);
+      }
     });
   }
 

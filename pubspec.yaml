@@ -50,6 +50,7 @@ dependencies:
   shared_preferences: ^2.3.1
   provider: ^6.1.2
   carousel_slider: ^4.2.1
+  modal_bottom_sheet: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -113,6 +114,10 @@ flutter:
     - assets/images/icons/payments/Light.png
     - assets/images/icons/payments/Shopping.png
     - assets/images/icons/payments/Tourism.png
+
+    - assets/images/icons/gifts/Line-Chart.png
+    - assets/images/icons/gifts/Trophy.png
+    - assets/images/icons/gifts/Sparkling.png
 
     - assets/images/logos/canalplus.png
     - assets/images/logos/rapido.png

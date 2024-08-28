@@ -181,7 +181,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
     context.loaderOverlay.show();
     _controller.addListener(_filterCompaniesByTextSearch);
     _fetchCompanies().then((_) {
-      context.loaderOverlay.hide();
+      if (mounted) {
+        context.loaderOverlay.hide();
+      }
     });
   }
 
