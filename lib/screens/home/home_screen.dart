@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:waveapp/providers/transactions_provider.dart';
-import 'package:waveapp/screens/auth/auth_screen.dart';
 import 'package:waveapp/screens/home/history/transaction_item.dart';
 import 'package:waveapp/screens/home/history/transaction_search.dart';
 import 'package:waveapp/screens/home/services/service_listing.dart';
@@ -89,14 +88,6 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    bool fromAuthScreen = false;
-
-    if (args != null &&
-        (args as HomeScreenArguments).previousRoute == AuthScreen.routeName) {
-      fromAuthScreen = true;
-    }
-
     final transactionsWatcher = context.watch<TransactionsProvider>();
     final storedTransactions = transactionsWatcher.transactions;
     storedTransactions.sort((a, b) => b.date.compareTo(a.date));
@@ -171,18 +162,16 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                             vertical: 6.0,
                           ),
                         ),
-                        if (!fromAuthScreen)
-                          AnimatedContainer(
-                              height: _isLoading ? 50 : 0,
-                              duration: const Duration(milliseconds: 250),
-                              child: AnimatedOpacity(
-                                opacity: _isLoading ? 1 : 0,
-                                duration: const Duration(milliseconds: 150),
-                                child: SpinKitRing(
-                                    lineWidth: 4,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                              )),
+                        AnimatedContainer(
+                            height: _isLoading ? 50 : 0,
+                            duration: const Duration(milliseconds: 250),
+                            child: AnimatedOpacity(
+                              opacity: _isLoading ? 1 : 0,
+                              duration: const Duration(milliseconds: 150),
+                              child: SpinKitRing(
+                                  lineWidth: 4,
+                                  color: Theme.of(context).colorScheme.primary),
+                            )),
                         for (int i = 0; i < storedTransactions.length; i++)
                           InkWell(
                               onTap: () {
